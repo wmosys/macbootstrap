@@ -8,38 +8,26 @@ Host *
 	ControlPersist 4h
 	Compression yes
 
-Host bwh
-    HostName 172.96.215.73
-    User root
-    Port 27850
-    IdentityFile ~/.ssh/id_rsa
-
-Host pi
-    HostName 172.23.237.55
-    User pi
-    Port 22
-    IdentityFile ~/.ssh/id_rsa
-
-Host qcloud
-    HostName 115.159.123.174
-    User root
-    Port 22
-    IdentityFile ~/.ssh/id_rsa
-
 Host dev
-    HostName 10.8.124.82
-    User zhangxingyu.bs
+    HostName 20.0.0.222
+    User wasadmin
+    Port 22
+    IdentityFile ~/.ssh/dev_id_rsa
+
+Host sit
+    HostName 20.0.0.239
+    User wasadmin
+    Port 22
+    IdentityFile ~/.ssh/sit_id_rsa
+
+Host uat
+    HostName 20.0.1.5
+    User ro
     Port 22
     IdentityFile ~/.ssh/id_rsa
 
-Host macpro
-    HostName 10.2.9.89
-    User iosarch
-    Port 22
-    IdentityFile ~/.ssh/id_rsa
-
-Host ies_mac_pro
-    HostName 10.1.0.59
-    User iesqa
+Host yc
+    HostName 20.0.1.12
+    User wasadmin
     Port 22
     IdentityFile ~/.ssh/id_rsa

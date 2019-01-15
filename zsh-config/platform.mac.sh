@@ -1,6 +1,6 @@
 alias o='open'
 alias oo='open .'
-alias ll='ls -alhG'
+alias ll='ls -lhG'
 alias src='source ~/.zshrc'
 
 export BSTEMP='/private/tmp'
@@ -17,6 +17,7 @@ function current_networkservice() {
     echo $network
 }
 
+# 获取当前 IP 
 function ip() {
     network=`current_networkservice`
     networksetup -getinfo $network | grep '^IP address' | awk -F: '{print $2}' | sed 's/ //g'
@@ -236,30 +237,4 @@ function resolution() {
 # Show path of xcode(Xcode must be running)
 function xcodepath() {
     ps `pgrep -x Xcode` R 2 C -1
-}
-
-# Android
-function aupdate() {
-     cd /tmp/1
-    if [ -e tieba-release.apk  ]; then
-        rm tieba-release.apk
-    fi
-    wget "http://ci.tieba.baidu.com/view/TBPP_Android/job/FC_Native_Android_Build_ICODE/""$1""/artifact/gen_apks/tieba-release.apk"
-    adb install -rg tieba-release.apk
-}
-
-function bssync() {
-    local from
-    local to
-    if [ "$#" -eq 1 ]; then
-        from='.'
-        to=${1}
-    elif [ "$# -eq 2"]; then
-        from=${1}
-        to=${2}
-    else
-        echo 'Usage: bssync ${destination} or bssync ${source} ${destination}'
-        return 1
-    fi
-    rsync -avz --delete --exclude=.git --exclude-from="$(git -C ${from} ls-files --exclude-standard -oi --directory > /tmp/excludes; echo /tmp/excludes)" ${from} ${to}
 }
