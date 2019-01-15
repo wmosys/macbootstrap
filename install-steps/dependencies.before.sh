@@ -16,5 +16,6 @@ else
 fi
 
 # CodeRunner
+# edit mosy
 # ---------------
-brew cask install coderunner
+# brew cask install coderunner
