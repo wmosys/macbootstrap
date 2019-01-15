@@ -1,5 +1,3 @@
-
-# Homebrew install function 
 function brew_install() {
     quiet=false
 
