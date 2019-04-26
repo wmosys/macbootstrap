@@ -47,6 +47,11 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Hom
 export PATH=$JAVA_HOME/bin:$PATH:.
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
 
+# Maven
+export M2_HOME=~/Server/apache-maven-3.5.3
+export PATH=$PATH:$M2_HOME/bin
+
+
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
 
