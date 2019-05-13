@@ -30,6 +30,10 @@ alias gba='git branch -a'
 alias gt='git tag'
 alias gtd='git tag -d'
 
+# SVN
+alias svnu='svn update'
+alias svnc='svn cleanup'
+
 # zsh
 alias cpu='sysctl -n machdep.cpu.brand_string'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
@@ -50,4 +54,5 @@ alias -g C='| column'
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
+# alias
 alias l='ls -lh'

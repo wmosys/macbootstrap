@@ -51,11 +51,13 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
 export M2_HOME=~/Server/apache-maven-3.5.3
 export PATH=$PATH:$M2_HOME/bin
 
+# Tomcat
+export TOMCAT_HOME=~/Server/apache-tomcat-8.5.33
 
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
 
-# 个人暂时无使用需求
+# 暂时无使用需求
 # for nvm
 # Start ###################################################################
 # export NVM_DIR=~/.nvm
@@ -89,5 +91,8 @@ alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
 alias nano="subl"
 export EDITOR="subl"
 
+# Alibaba Arthas
+export ARTHAS_HOME=~/Server/alibaba-arthas/arthas-packaging-3.1.0-bin
+alias arthas="java -jar $ARTHAS_HOME/arthas-boot.jar"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

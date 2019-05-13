@@ -8,7 +8,8 @@ source $BS_ZSH_BASE/zsh-config/misc.sh
 source $BS_ZSH_BASE/zsh-config/tools.sh
 source $BS_ZSH_BASE/zsh-config/alias.sh
 source $BS_ZSH_BASE/zsh-config/fzf.sh
-# 七牛图床
+source $BS_ZSH_BASE/zsh-config/server.sh
+# ÆßÅ£Í¼´²
 #source $BS_ZSH_BASE/software/qiniu/qiniu.sh
 for f in $BS_ZSH_BASE/zsh-config/functions/*.sh; do source $f; done
 
