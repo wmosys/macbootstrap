@@ -1,0 +1,65 @@
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[help]
+    format = html
+[alias]
+    br = branch
+    ca = commit -a
+    ci = commit
+    co = checkout
+    st = status
+    oln = log --pretty=oneline --since='2 days ago' --color --graph --abbrev-commit
+    olg = log -p -1 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit
+    amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+    zip = !git archive --format zip master --output
+    zipHead = !git archive --format=zip HEAD --output
+    rmd = !git ls-files -d  -z | xargs -0 git rm
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[log]
+    date = local
+[core]
+	excludesfile = /Users/mosy/.gitignore_global
+    whitespace = cr-at-eol
+    quotepath = false
+    editor = /usr/local/bin/nvim
+    attributesfile = ~/.gitattributes
+    autocrlf = input
+[i18n]
+    commitencoding = utf-8
+    logoutputencoding = utf-8
+[gui]
+    encoding = utf-8
+[push]
+    default = current
+[grep]
+    lineNumber = true
+[diff "exif"]
+    textconv = exiftool
+[diff "plist"]
+    textconv = plutil -convert xml1 -o -
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[user]
+	name = 莫仕燚
+	email = mosy@kayak.com.cn
+	signingkey = 7EF57CF9C1B3CBE2
+[commit]
+	template = /Users/mosy/.stCommitMsg
+[mergetool]
+    keepBackup = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg2

@@ -1,8 +1,8 @@
 {
-    "server":"172.96.215.73",
-    "server_port":443,
+    "server":"123.56.88.99",
+    "server_port":37601,
     "local_port":14179,
-    "password":"12345678",
+    "password":"W0FffT",
     "timeout":600,
-    "method":"aes-256-cfb"
+    "method":"rc4-md5"
 }

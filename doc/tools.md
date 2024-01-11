@@ -9,6 +9,7 @@
 * the-unarchiver(cask)：用于解压缩文件
 * Charles(curl from qiniu)：用于网络抓包调试
 * Dash(curl from qiniu)：用于快速查找文档
+* Jetbrains Toolbox(cask)：用于安装 Jetbrains 家的 IDE
 * wget
 * gnu-sed
 * cmake
@@ -23,6 +24,7 @@
 * redis  (通过 `redis-server /usr/local/etc/redis.conf` 启动或者 `brew services start redis` 启动并且设置为开机立即启动)
 * gpg：git 提交加密工具
 * fzf
+* cloc
 
 ## iterm2
 

@@ -9,6 +9,7 @@ brew cask uninstall google-chrome
 brew cask uninstall coderunner
 brew cask uninstall the-unarchiver
 brew cask uninstall visual-studio-code
+brew cask uninstall jetbrains-toolbox
 brew uninstall wget
 brew uninstall gnu-sed
 brew uninstall autojump
@@ -28,6 +29,8 @@ brew uninstall scmpuff
 brew uninstall fzf
 brew uninstall exiftool
 brew uninstall git-lfs
+brew uninstall cloc
+brew uninstall jenv
 
 # npm clean
 npm uninstall -g gnomon
@@ -42,3 +45,4 @@ rm -f ~/.gitconfig
 rm -f ~/.ssh/config
 rm -rf ~/.vim
 rm -rf ~/.oh-my-zsh
+rm -rf ~/.jenv

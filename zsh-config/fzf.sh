@@ -1,20 +1,20 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-gga() {
-  git lg --all |\
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % git log --color --graph -p % | less -R) << 'FZF-EOF'
-                {}
-FZF-EOF"
-}
+# gga() {
+#   git lg --all |\
+#   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+#       --bind "ctrl-m:execute:
+#                 (grep -o '[a-f0-9]\{7\}' | head -1 |
+#                 xargs -I % git log --color --graph -p % | less -R) << 'FZF-EOF'
+#                 {}
+# FZF-EOF"
+# }
 
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_DEFAULT_COMMAND='git ls-tree -r --name-only HEAD || fd --color=always--type f --follow --hidden --exclude .git'
 export FZF_DEFAULT_OPTS="--ansi"
 
-typeset -A FZF_PER_CMD_COMPLETION_TRIGGERS=(ssh '' vim '*' gbdr '')
+typeset -A FZF_PER_CMD_COMPLETION_TRIGGERS=(ssh '' vim '*' gbdr '' make '')
 export FZF_PER_CMD_COMPLETION_TRIGGERS
 
 fzf-completion() {

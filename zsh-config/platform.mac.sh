@@ -1,13 +1,10 @@
-alias o='open'
-alias oo='open .'
-alias ll='ls -lhG'
-alias src='source ~/.zshrc'
-
 export BSTEMP='/private/tmp'
 
 function current_networkservice() {
     network=''
-    if [ "$(networksetup -getnetworkserviceenabled Ethernet)" = 'Enabled' ]; then
+    if [ "$(networksetup -getnetworkserviceenabled CalDigit-TS3-Plus)" = 'Enabled' ]; then
+       network='CalDigit-TS3-Plus'
+    elif [ "$(networksetup -getnetworkserviceenabled Ethernet)" = 'Enabled' ]; then
        network='Ethernet'
     elif [ "$(networksetup -getnetworkserviceenabled Wi-Fi)" = 'Enabled' ]; then
        network='Wi-Fi'
@@ -232,9 +229,4 @@ function wifipassword () {
 function resolution() {
     brew_install -q exiv2
     exiv2 $1 | grep 'Image size' | column 4 5 6
-}
-
-# Show path of xcode(Xcode must be running)
-function xcodepath() {
-    ps `pgrep -x Xcode` R 2 C -1
 }

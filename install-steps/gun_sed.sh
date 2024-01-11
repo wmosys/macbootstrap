@@ -1,5 +1,10 @@
 source basic.sh
 
+# Install oh-my-zsh
+if [[ ! -e ~/.oh-my-zsh ]]; then
+    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+fi
+
 # Install gnu-sed
 if brew ls --versions gnu-sed > /dev/null; then
     echo "You have installed gsed"
@@ -17,8 +22,9 @@ fi
 
 # Install gnu tool
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew reinstall universal-ctags
 brew install git
-# brew install redis
+brew_install python3
 brew_install cmake
 brew_install gawk
 brew_install autojump
@@ -38,5 +44,18 @@ brew_install nvim
 brew_install exiftool
 brew_install archey
 brew_install ranger
-brew_install git-lfs
+brew_install git-lfs && git lfs install
+brew_install cloc
+brew_install jenv
+brew_install asdf
+brew_install neofetch
 $(brew --prefix)/opt/fzf/install --all
+
+if [[ ! -e /usr/local/opt/asdf ]]; then
+    brew_install asdf
+    asdf plugin add java
+    asdf plugin add nodejs
+else
+    echo "You have installed coreutils"
+fi
+
