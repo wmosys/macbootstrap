@@ -1,28 +1,26 @@
 #!/bin/sh
 
 # Intall Homebrew
-./install_homebrew.sh
+# ./install_homebrew.sh
 
 # Base Funcation
 source basic.sh
 
 # Install Python3 & Shadowsocks
-if [[ ! -e /usr/local/bin/sslocal ]]; then
-    brew install shadowsocks-libev
-    brew services start shadowsocks-libev
-    ln -s /usr/local/opt/shadowsocks-libev/bin/ss-local /usr/local/bin/sslocal
-    ln -s /usr/local/opt/shadowsocks-libev/bin/ss-server /usr/local/bin/ss-server
-else
-    echo "You have installed shadowsocks"
-fi
+# if [[ ! -e /usr/local/bin/sslocal ]]; then
+#     brew install shadowsocks-libev
+#     brew services start shadowsocks-libev
+# else
+#     echo "You have installed shadowsocks"
+# fi
 
 # Install and use shadowsocks
-if not_tt_network; then
-    nohup sslocal -c ~/.macbootstrap/tools/netconf &> /private/tmp/nohup.out&
-    #export ALL_PROXY=socks5://127.0.0.1:14179
-else
-    echo "You are in toutiao network, no need to use ss now"
-fi
+# if not_tt_network; then
+#     nohup sslocal -c ~/.macbootstrap/tools/netconf &> /private/tmp/nohup.out&
+#     #export ALL_PROXY=socks5://127.0.0.1:14179
+# else
+#     echo "You are in toutiao network, no need to use ss now"
+# fi
 
 # Install gun-sed
 ./install-steps/gun_sed.sh

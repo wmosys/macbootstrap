@@ -7,6 +7,7 @@
 # exec 3>&2 2>$logfile
 # setopt XTRACE
 
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -64,21 +65,28 @@ SAVEHIST=$HISTSIZE
 HIST_STAMPS="yyyy-mm-dd"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=magenta'
 ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd"
-HISTTIMEFORMAT="%Y-%M-%D %H:%M:%S %R `whoami`" # 这一行ZSH启动也挺慢的
+HISTTIMEFORMAT="%Y-%M-%D %H:%M:%S %R" # 这一行ZSH启动也挺慢的
 #=========================================================================
 
 # Cache Freq Use Variables
 _MOSY_HOMWBREW_PREFIX="/usr/local"
+if [[ "$(uname -sm)" = "Darwin arm64" ]] then _MOSY_HOMWBREW_PREFIX="/opt/homebrew"; fi
+_MOSY_HOMEBREW_ZSH_COMPLETION="${_MOSY_HOMWBREW_PREFIX}/share/zsh/site-functions"
 
 #=========================================================================
 # oh-my-zsh
 #=========================================================================
 # 禁用安全功能 加快启动速度
 export ZSH_DISABLE_COMPFIX="true"
+# OMZ 更新模式 disabled-禁用 auto-自动更新 reminder-仅检查是否有可用更新
+zstyle ':omz:update' mode disabled
+# 每15天才检查一次更新
+zstyle ':omz:update' frequency 15
+# export DISABLE_AUTO_TITLE=true
 
 # 插件
 plugins=(
-    docker
+    # docker
     mvn
     extract
     brew
@@ -97,9 +105,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 ZLE_RPROMPT_INDENT=0
 source $ZSH/oh-my-zsh.sh
 
-# # 自动加载 fpath 路径下函数
-# fpath=(/usr/local/share/zsh-completions $fpath)
-# compinit -u
+# 自动加载 fpath 路径下函数
+fpath=(/usr/local/share/zsh-completions $fpath)
+compinit -u
 # # Bind key
 # bindkey ';' autosuggest-execute
 # # archey -o
@@ -117,7 +125,7 @@ BS_ZSH_TOOLS=${BS_ZSH_BASE}/tools
 # import macbootstrap shell function
 source $BS_ZSH_BASE/basic.sh
 source $BS_ZSH_BASE/zsh-config/common.sh
-source /usr/local/etc/profile.d/autojump.sh
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 # scmpuff 通用 Git 命令的数字文件快捷方式
 # eval "$(scmpuff init -s --aliases=false)"
@@ -134,10 +142,16 @@ export NODE_MIRROR=https://mirrors.aliyun.com/nodejs-release/
 #=========================================================================
 
 #=========================================================================
-# Java JDK
+# Java JDK jenv
 #=========================================================================
-eval "$(jenv init -)"
 export PATH="$PATH:$HOME/.jenv/bin"
+eval "$(jenv init -)"
+#=========================================================================
+
+#=========================================================================
+# asdf
+#=========================================================================
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 #=========================================================================
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

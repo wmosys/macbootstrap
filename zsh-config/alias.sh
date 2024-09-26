@@ -30,7 +30,8 @@
 # alias gt='git tag'
 # alias gtd='git tag -d'
 # alias glfi='git ls-files --exclude-standard --ignored --other'
-alias gsfgcd="git submodule foreach 'git checkout develop'"
+alias gsfgcdev="git submodule foreach 'git checkout develop'"
+alias gsfgcsit="git submodule foreach 'git checkout sit'"
 alias gsfp="git submodule foreach 'git pull'"
 
 # SVN

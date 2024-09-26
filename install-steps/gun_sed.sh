@@ -24,6 +24,9 @@ fi
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 brew reinstall universal-ctags
 brew install git
+brew install mercurial
+brew install git-flow
+brew_install git-lfs && git lfs install
 brew_install python3
 brew_install cmake
 brew_install gawk
@@ -44,7 +47,6 @@ brew_install nvim
 brew_install exiftool
 brew_install archey
 brew_install ranger
-brew_install git-lfs && git lfs install
 brew_install cloc
 brew_install jenv
 brew_install asdf

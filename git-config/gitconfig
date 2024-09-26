@@ -19,7 +19,7 @@
     zipHead = !git archive --format=zip HEAD --output
     rmd = !git ls-files -d  -z | xargs -0 git rm
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [log]
     date = local
@@ -44,14 +44,15 @@
 [diff "plist"]
     textconv = plutil -convert xml1 -o -
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
-	path = -ro
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
 [user]
-	name = 莫仕燚
-	email = mosy@kayak.com.cn
-	signingkey = 7EF57CF9C1B3CBE2
+	name = mosy
+	email = mmosy@outlook.com
+	signingkey = 368B0D29D38D4B4EEE5BF51EB2468CF4358BF1CF
 [commit]
 	template = /Users/mosy/.stCommitMsg
+	gpgsign = true
 [mergetool]
     keepBackup = false
 [filter "lfs"]

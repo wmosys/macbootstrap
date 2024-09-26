@@ -8,14 +8,14 @@ defaults write -globalDomain com.apple.keyboard.fnState -int 1
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Auto hide and show Dock
-defaults write com.apple.dock autohide -bool true
+# defaults write com.apple.dock autohide -bool true
 
 # Hide some app icons in Dock and make dock lays left
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock orientation -string left
 
 # 显示电池电量百分比
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+# defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # Disable menu bar transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false

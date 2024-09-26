@@ -10,17 +10,29 @@ function init_git() {
         mkdir $HOME/.ssh
     fi
 
-    # ssh key
-    if [[ ! -f $HOME/.ssh/id_rsa ]]; then
-        chmod 400 $HOME/.macbootstrap/config/id_rsa
-        ln -s $HOME/.macbootstrap/config/id_rsa $HOME/.ssh/
+    # ssh key - id_rsa_mosy_outlook
+    if [[ ! -f $HOME/.ssh/id_rsa_mosy_outlook ]]; then
+        chmod 400 $HOME/.macbootstrap/config/id_rsa_mosy_outlook
+        ln -s $HOME/.macbootstrap/config/id_rsa_mosy_outlook $HOME/.ssh/
     fi
 
-    if [[ ! -f $HOME/.ssh/id_rsa.pub ]]; then
-        ln -s $HOME/.macbootstrap/config/id_rsa.pub $HOME/.ssh/
+    if [[ ! -f $HOME/.ssh/id_rsa_mosy_outlook.pub ]]; then
+        ln -s $HOME/.macbootstrap/config/id_rsa_mosy_outlook.pub $HOME/.ssh/
     fi
 
-    ssh-add -K $HOME/.ssh/id_rsa
+    ssh-add -K $HOME/.ssh/id_rsa_mosy_outlook
+
+    # ssh key - id_rsa_kayak_mosy
+    if [[ ! -f $HOME/.ssh/id_rsa_kayak_mosy ]]; then
+        chmod 400 $HOME/.macbootstrap/config/id_rsa_kayak_mosy
+        ln -s $HOME/.macbootstrap/config/id_rsa_kayak_mosy $HOME/.ssh/
+    fi
+
+    if [[ ! -f $HOME/.ssh/id_rsa_kayak_mosy.pub ]]; then
+        ln -s $HOME/.macbootstrap/config/id_rsa_kayak_mosy.pub $HOME/.ssh/
+    fi
+
+    ssh-add -K $HOME/.ssh/id_rsa_kayak_mosy
 
     # GPG_KEY
     GPG_KEY="$HOME/.macbootstrap/git-config/mosy.asc"
@@ -32,6 +44,10 @@ function init_git() {
 
 
 function install_personal_apps() {
+    brew install svn
+    brew install btop
+    brew install tree
+
     brew install nebula
     brew install telnet
     brew install 1password
@@ -41,6 +57,8 @@ function install_personal_apps() {
     brew install gpg-suite
     brew install beyond-compare
     brew install postman
+    brew install drawio
+    brew install textsniper
     brew install pdf-expert
     brew install iina
     brew install another-redis-desktop-manager
@@ -48,10 +66,13 @@ function install_personal_apps() {
     brew install qqmusic
     brew install youdaodict
     brew install imazing
+    brew install siyuan
     brew install yinxiangbiji
     brew install visual-studio-code
     brew install balenaetcher
     brew install nrlquaker-winbox
+    brew install obs
+    brew install microsoft-remote-desktop
 }
 
 

@@ -1,4 +1,3 @@
-
 # ControlPath ~/.ssh/%h-%p-%r
 Host *
     ForwardAgent yes
@@ -18,7 +17,7 @@ Host *
 #    ForwardX11Trusted yes
 
 ########################################################################################################
-# My
+# My Cloud
 ########################################################################################################
 
 #SCE_ICON:github
@@ -26,19 +25,19 @@ Host *
 Host github.com
     User Mosys
     HostName github.com
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
 # aliyun
 Host codeup.aliyun.com
     User Mosy
     HostName codeup.aliyun.com
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host Mosys-GitHub
     HostName github.com
     User Mosys
     PreferredAuthentications publickey
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
     UseKeychain yes
     AddKeysToAgent yes
 
@@ -54,8 +53,33 @@ Host Mosys-Gitee
 # RackNerd
 Host rack
     User root
-    HostName 192.3.84.105
+    HostName 192.3.84.128
     Port 5300
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# tencent-cloud-lfz
+Host tx-cloud-lfz
+    user root
+    HostName 175.178.34.78
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# tencent-cloud-lfz
+Host tx-cloud-mosy
+    user root
+    HostName 175.178.165.55
+    Port 23
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+########################################################################################################
+
+
+########################################################################################################
+# HomeLab
+########################################################################################################
+Host git.mosy.xyz
+    User mosy
+    HostName git.mosy.xyz
+    Port 23333
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
 # N1
@@ -65,20 +89,61 @@ Host n1
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy
 
-# r2s
-Host r2s
+# PVE
+Host pve
     User root
-    HostName 192.168.100.1
-    Port 2333
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy
-
-# tencent-cloud-lfz
-Host tencent-cloud-lfz
-    user root
-    HostName 175.178.34.78
+    HostName 10.88.0.5
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
+# PVE Dns
+Host pve-dns
+    User root
+    HostName 10.88.11.1
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Docker
+Host pve-docker
+    User root
+    HostName 10.88.11.11
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Docker
+Host pve-store
+    User root
+    HostName 10.88.11.13
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Docker
+Host pve-media
+    User root
+    HostName 10.88.11.16
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Work Docker
+Host pve-work-1
+    User root
+    HostName 10.88.22.1
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Work Docker
+Host pve-app-1
+    User root
+    HostName 10.88.66.1
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# iStore
+Host istore
+    User root
+    HostName 10.88.11.12
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 ########################################################################################################
 
 
@@ -91,15 +156,15 @@ Host tencent-cloud-lfz
 Host git.kkws.cn
     User mosy
     HostName git.kkws.cn
-    Port 10022
-    # Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    ## Port 10022
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # Kayak Git Lab
 Host git.old.kkws.cn
     User mosy
     HostName git.old.kkws.cn
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 ########################################################################################################
 
@@ -108,261 +173,318 @@ Host kayakdeepin
     User root
     HostName 172.21.2.125
     Port 8322
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 配置跳板机
-Host kayak-*
-    ProxyCommand ssh root@kayakdeepin -W %h:%p
-
-Host 172.23.*
-    ProxyCommand ssh root@kayakdeepin -W %h:%p
+# # # 配置跳板机
+# Host kayak-*
+#     ProxyCommand ssh root@kayakdeepin -W %h:%p
+# # #
+# Host 172.23.*
+#     ProxyCommand ssh root@kayakdeepin -W %h:%p
 
 # Kayak
 Host kayak-172.23.4.13
     User root
     HostName 172.23.4.13
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # Kayak
 Host kayak-172.23.9.11
     User root
     HostName 172.23.9.11
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # Kayak
 Host kayak-172.23.9.12
     User root
     HostName 172.23.9.12
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.9.14-POC-Root
     User root
     HostName 172.23.9.14
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.9.15-APP-Root
     User root
     HostName 172.23.9.15
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.2.130-APP-Root
     User root
     HostName 172.23.2.130
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.3.203-APP-Root
     User root
     HostName 172.23.3.203
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.11.10-DB2-Root
     User root
     HostName 172.23.11.10
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.18.11-DB2-Root
     User root
     HostName 172.23.18.11
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.11.20-DB2-Root
     User root
     HostName 172.23.11.20
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.11.12-Oracle-Root
     User root
     HostName 172.23.11.12
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.2.68-Oracle-Root
     User root
     HostName 172.23.2.68
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.2.21
     User root
     HostName 172.23.2.21
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 分销 MySQL
+# TA MySQL
 Host kayak-172.23.2.19
     User root
     HostName 172.23.2.19
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 分销 中间件
+# TA 中间件
 Host kayak-172.23.4.19
     User root
     HostName 172.23.4.19
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富中台 MySQL
+# 财富平台 MySQL
 Host kayak-172.23.2.223
     User root
     HostName 172.23.2.223
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富中台 Oracle 12C
+# 财富平台 Oracle 12C
 Host kayak-172.23.2.25
     User root
     HostName 172.23.2.25
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富中台 演示
+# 财富平台 演示
 Host kayak-172.23.4.29
     User root
     HostName 172.23.4.29
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 MySQL
+# 财富平台-公共 MySQL
 Host kayak-172.23.24.10
     User root
     HostName 172.23.24.10
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 Nacos1
+# 财富-生产 MySQL
+Host kayak-172.23.24.26
+    User root
+    HostName 172.23.24.26
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 财富-OceanBase
+Host kayak-172.23.24.29
+    User root
+    HostName 172.23.24.29
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+
+# 财富平台-公共 Nacos1
 Host kayak-172.23.4.60
     User root
     HostName 172.23.4.60
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 Nacos2
+# 财富平台-公共 Nacos2
 Host kayak-172.23.4.61
     User root
     HostName 172.23.4.61
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 Nacos3
+# 财富平台-公共 Nacos3
 Host kayak-172.23.4.62
     User root
     HostName 172.23.4.62
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 Nginx
+# 财富平台-公共 Nginx
 Host kayak-172.23.4.63
     User root
     HostName 172.23.4.63
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 财富公共 Oracle
+# 财富平台-公共 Oracle
 Host kayak-172.23.24.11
     User root
     HostName 172.23.24.11
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# TA 
+# TA
 Host kayak-172.23.4.71
     User root
     HostName 172.23.4.71
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
-
-# TA 
-Host kayak-172.23.4.71
-    User root
-    HostName 172.23.4.71
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # TA 中间件
 Host kayak-172.23.4.72
     User root
     HostName 172.23.4.72
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# TA 
+# TA
 Host kayak-172.23.4.74
     User root
     HostName 172.23.4.74
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-    # TA 
+# TA
 Host kayak-172.23.4.75
     User root
     HostName 172.23.4.75
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-Redis-172.23.4.76
 Host kayak-172.23.4.76
     User root
     HostName 172.23.4.76
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-APP-DEV-172.23.4.77
 Host kayak-172.23.4.77
     User root
     HostName 172.23.4.77
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-APP-SIT-172.23.4.78
 Host kayak-172.23.4.78
     User root
     HostName 172.23.4.78
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-APP-UAT-172.23.4.79
 Host kayak-172.23.4.79
     User root
     HostName 172.23.4.79
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-APP-Master-172.23.4.80
 Host kayak-172.23.4.80
     User root
     HostName 172.23.4.80
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-APP-File-172.23.4.81
 Host kayak-172.23.4.81
     User root
     HostName 172.23.4.81
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # WMP-MongoDB-172.23.4.82
 Host kayak-172.23.4.82
     User root
     HostName 172.23.4.82
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 自动化测试
+# 自动化测试 - 测试环境
 Host kayak-atp-172.23.4.83
     User root
     HostName 172.23.4.83
     Port 222
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+    # 自动化测试 - 测试环境 - 生产环境
+Host kayak-atp-172.23.4.66
+    User root
+    HostName 172.23.4.66
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 自动化测试
+Host kayak-atp-172.23.4.97
+    User root
+    HostName 172.23.4.97
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 财富平台中间件
+Host kayak-172.23.4.98
+    User root
+    HostName 172.23.4.98
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # 性能测试
 Host kayak-172.24.2.51
     User root
     HostName 172.24.2.51
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # 性能测试
 Host kayak-172.24.2.52
     User root
     HostName 172.24.2.52
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # 性能测试
 Host kayak-172.24.2.53
     User root
     HostName 172.24.2.53
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # 性能测试
 Host kayak-172.24.2.55
     User root
     HostName 172.24.2.55
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 性能测试
-Host kayak-172.24.2.55
+
+# OcenBase - OBProxy
+Host kayak-172.23.2.59
     User root
-    HostName 172.24.2.55
+    HostName 172.23.2.59
     Port 22
-    IdentityFile /Users/mosy/.ssh/id-rsa-kayak-mosy
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# OcenBase - Master
+Host kayak-172.23.2.60
+    User root
+    HostName 172.23.2.60
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# OcenBase - Server 1
+Host kayak-172.23.2.61
+    User root
+    HostName 172.23.2.61
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# OcenBase - Server 2
+Host kayak-172.23.2.62
+    User root
+    HostName 172.23.2.62
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# OcenBase - Server 3
+Host kayak-172.23.2.63
+    User root
+    HostName 172.23.2.63
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
