@@ -25,6 +25,8 @@ if [[ ! -e /usr/local/bin/brew ]]; then
     for tap in core cask{,-fonts,-drivers,-versions} command-not-found; do
         brew tap --custom-remote --force-auto-update "homebrew/${tap}" "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-${tap}.git"
     done
+
+    brew tap mihomo-party-org/mihomo-party
     
 else
     echo "You have installed brew"

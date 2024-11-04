@@ -48,6 +48,7 @@ function install_personal_apps() {
     brew install btop
     brew install tree
 
+    brew install --cask mihomo-party
     brew install nebula
     brew install telnet
     brew install 1password
@@ -70,9 +71,11 @@ function install_personal_apps() {
     brew install yinxiangbiji
     brew install visual-studio-code
     brew install balenaetcher
-    brew install nrlquaker-winbox
+    brew install winbox
     brew install obs
     brew install microsoft-remote-desktop
+    brew install waegisub
+    brew install amorphousdiskmark
 }
 
 

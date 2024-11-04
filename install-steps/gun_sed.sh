@@ -32,8 +32,10 @@ brew_install cmake
 brew_install gawk
 brew_install autojump
 brew_install wget
-brew_install nvm
-brew_install exiv2
+# brew_install nvm
+brew_install n 
+brew_install zsh-completions
+# brew_install exiv2
 brew_install ssh-copy-id
 brew_install imagemagick
 brew_install catimg
@@ -42,14 +44,14 @@ brew_install icdiff
 brew_install scmpuff
 brew_install fzf
 brew_install fd
-brew_install the_silver_searcher
+brew_install the_silver_searcher # ag
 brew_install nvim
 brew_install exiftool
-brew_install archey
+# brew_install archey
 brew_install ranger
 brew_install cloc
 brew_install jenv
-brew_install asdf
+# brew_install asdf
 brew_install neofetch
 $(brew --prefix)/opt/fzf/install --all
 

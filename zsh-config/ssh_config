@@ -1,3 +1,8 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# Comment this line if you don't want it to be added again.
+Include ~/.orbstack/ssh/config
+
 # ControlPath ~/.ssh/%h-%p-%r
 Host *
     ForwardAgent yes
@@ -103,21 +108,28 @@ Host pve-dns
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE Docker
-Host pve-docker
+# PVE Gateway
+Host pve-gateway
     User root
     HostName 10.88.11.11
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE Docker
+# PVE store
 Host pve-store
     User root
     HostName 10.88.11.13
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE Docker
+# PVE store
+Host pve-truenas
+    User root
+    HostName 10.88.11.15
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE media
 Host pve-media
     User root
     HostName 10.88.11.16
@@ -132,9 +144,51 @@ Host pve-work-1
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
 # PVE Work Docker
+Host pve-work-2
+    User root
+    HostName 10.88.22.2
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Work Docker
+Host pve-work-3
+    User root
+    HostName 10.88.22.3
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Work Docker
+Host pve-work-4
+    User root
+    HostName 10.88.22.4
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE Work Docker
+Host pve-work-5
+    User root
+    HostName 10.88.22.5
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+
+# PVE APP
 Host pve-app-1
     User root
     HostName 10.88.66.1
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+Host pve-app-2
+    User root
+    HostName 10.88.66.2
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# PVE APP
+Host pve-apm
+    User root
+    HostName 10.88.66.66
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
@@ -182,32 +236,38 @@ Host kayakdeepin
 # Host 172.23.*
 #     ProxyCommand ssh root@kayakdeepin -W %h:%p
 
+Host kayak-proxy
+    User root
+    HostName 172.23.4.98
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+Host kayak-jc-proxy
+    User root
+    HostName 172.23.26.50
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 数据库网段跳板配置
+# Host kayak-172.23.24.*
+#     ProxyCommand ssh kayak-proxy -W %h:%p
+# Host 172.23.24.*
+#     ProxyCommand ssh kayak-proxy -W %h:%p
+# Host kayak-172.23.2.*
+#     ProxyCommand ssh kayak-proxy -W %h:%p
+# Host 172.23.2.*
+#     ProxyCommand ssh kayak-proxy -W %h:%p
+Host kayak-172.23.24.26
+    ProxyCommand ssh kayak-proxy -W %h:%p
+Host 172.23.24.26
+    ProxyCommand ssh kayak-proxy -W %h:%p
+Host kayak-172.23.4.*
+    ProxyCommand ssh kayak-jc-proxy -W %h:%p
+
 # Kayak
 Host kayak-172.23.4.13
     User root
     HostName 172.23.4.13
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-# Kayak
-Host kayak-172.23.9.11
-    User root
-    HostName 172.23.9.11
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-# Kayak
-Host kayak-172.23.9.12
-    User root
-    HostName 172.23.9.12
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.9.14-POC-Root
-    User root
-    HostName 172.23.9.14
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.9.15-APP-Root
-    User root
-    HostName 172.23.9.15
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 Host kayak-172.23.2.130-APP-Root
@@ -220,43 +280,6 @@ Host kayak-172.23.3.203-APP-Root
     HostName 172.23.3.203
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-Host kayak-172.23.11.10-DB2-Root
-    User root
-    HostName 172.23.11.10
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.18.11-DB2-Root
-    User root
-    HostName 172.23.18.11
-    Port 22
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.11.20-DB2-Root
-    User root
-    HostName 172.23.11.20
-    Port 22
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.11.12-Oracle-Root
-    User root
-    HostName 172.23.11.12
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.2.68-Oracle-Root
-    User root
-    HostName 172.23.2.68
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-Host kayak-172.23.2.21
-    User root
-    HostName 172.23.2.21
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
-
-# TA MySQL
-Host kayak-172.23.2.19
-    User root
-    HostName 172.23.2.19
-    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # TA 中间件
 Host kayak-172.23.4.19
@@ -286,6 +309,12 @@ Host kayak-172.23.4.29
 Host kayak-172.23.24.10
     User root
     HostName 172.23.24.10
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 财富平台-公共 MySQL
+Host kayak-172.23.24.16
+    User root
+    HostName 172.23.24.16
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
 # 财富-生产 MySQL
@@ -397,22 +426,22 @@ Host kayak-172.23.4.82
     HostName 172.23.4.82
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 自动化测试 - 测试环境
-Host kayak-atp-172.23.4.83
+# 平台研发-自动化测试 - 测试环境
+Host kayak-172.23.4.83
     User root
     HostName 172.23.4.83
     Port 222
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-    # 自动化测试 - 测试环境 - 生产环境
-Host kayak-atp-172.23.4.66
+# 平台研发-自动化测试 - 测试环境 - 生产环境
+Host kayak-172.23.4.66
     User root
     HostName 172.23.4.66
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
-# 自动化测试
-Host kayak-atp-172.23.4.97
+# 平台研发-自动化测试
+Host kayak-172.23.4.97
     User root
     HostName 172.23.4.97
     Port 22
@@ -443,6 +472,13 @@ Host kayak-172.24.2.52
 Host kayak-172.24.2.53
     User root
     HostName 172.24.2.53
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# 性能测试
+Host kayak-172.24.2.54
+    User root
+    HostName 172.24.2.54
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
@@ -486,5 +522,12 @@ Host kayak-172.23.2.62
 Host kayak-172.23.2.63
     User root
     HostName 172.23.2.63
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
+
+# TA - MySQL 开发库
+Host kayak-172.23.24.29
+    User root
+    HostName 172.23.24.29
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy

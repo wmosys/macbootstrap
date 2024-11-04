@@ -37,12 +37,12 @@ sudo gem update --system 2.7.6
 # nvm & npm install
 if [[ ! -d $HOME/.nvm ]]; then
     mkdir $HOME/.nvm
+    export NVM_DIR="$HOME/.nvm"
+    source $(brew --prefix nvm)/nvm.sh
+    export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+    nvm install 18
+    ./install-steps/node_global.sh
 fi
-export NVM_DIR="$HOME/.nvm"
-source $(brew --prefix nvm)/nvm.sh
-export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
-nvm install 14.18.1
-./install-steps/node_global.sh
 
 # 
 # hook login
