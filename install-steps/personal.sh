@@ -76,6 +76,7 @@ function install_personal_apps() {
     brew install microsoft-remote-desktop
     brew install waegisub
     brew install amorphousdiskmark
+    brew install nping
 }
 
 

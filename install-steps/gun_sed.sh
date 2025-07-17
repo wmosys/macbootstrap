@@ -32,7 +32,6 @@ brew_install cmake
 brew_install gawk
 brew_install autojump
 brew_install wget
-# brew_install nvm
 brew_install n 
 brew_install zsh-completions
 # brew_install exiv2

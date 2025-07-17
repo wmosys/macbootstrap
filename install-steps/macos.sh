@@ -70,7 +70,7 @@ sudo spctl --master-disable
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Disable auto correct
-defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false 
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
