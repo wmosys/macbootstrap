@@ -44,6 +44,7 @@ function init_git() {
 
 
 function install_personal_apps() {
+    brew install sparkle
     brew install svn
     brew install btop
     brew install tree
@@ -65,7 +66,7 @@ function install_personal_apps() {
     brew install another-redis-desktop-manager
     brew install qq
     brew install qqmusic
-    brew install youdaodict
+    brew install eudic
     brew install imazing
     brew install siyuan
     brew install yinxiangbiji

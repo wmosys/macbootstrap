@@ -196,15 +196,26 @@ Host pve-app-2
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
     
+Host pve-app-3
+    User root
+    HostName 10.88.20.12
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE APN
+# PVE Ubnt UI
+Host pve-clash
+    User root
+    HostName 10.88.20.251
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+# PVE Ubnt UI
 Host pve-ui
     User root
     HostName 10.88.20.253
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE APN
+# PVE APM
 Host pve-apm
     User root
     HostName 10.88.20.254
