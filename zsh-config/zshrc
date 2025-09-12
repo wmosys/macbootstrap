@@ -30,6 +30,9 @@ export GPG_TTY=$(tty)
 # Maven
 export MAVEN_HOME=$HOME/Server/apache-maven
 export PATH=$PATH:$MAVEN_HOME/bin
+# Maven Daemon
+export MAVEN_DAEMON_HOME=$HOME/Server/apache-maven-mvnd
+export PATH=$PATH:$MAVEN_DAEMON_HOME/bin
 # Ant
 export ANT_HOME=$HOME/Server/apache-ant
 export PATH=$PATH:$ANT_HOME/lib/bin
@@ -51,6 +54,8 @@ export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bot
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
 export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+# Homebrew 并发下载
+HOMEBREW_DOWNLOAD_CONCURRENCY=auto
 # 关闭自动更新
 export HOMEBREW_NO_AUTO_UPDATE=true
 # Cache Freq Use Variables
@@ -181,4 +186,4 @@ eval "$(jenv init -)"
 # =========================================================================
 # unsetopt XTRACE
 # exec 2>&3 3>&-
-source /Users/mosy/.dacs_run_profile
+# source /Users/mosy/.dacs_run_profile

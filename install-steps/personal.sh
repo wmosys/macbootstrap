@@ -44,14 +44,14 @@ function init_git() {
 
 
 function install_personal_apps() {
-    brew install sparkle
     brew install svn
     brew install btop
     brew install tree
 
-    brew install --cask mihomo-party
     brew install nebula
     brew install telnet
+    brew install syncthing
+
     brew install 1password
     brew install istat-menus
     brew install bartender
@@ -60,7 +60,6 @@ function install_personal_apps() {
     brew install beyond-compare
     brew install postman
     brew install drawio
-    brew install textsniper
     brew install pdf-expert
     brew install iina
     brew install another-redis-desktop-manager
@@ -73,11 +72,8 @@ function install_personal_apps() {
     brew install visual-studio-code
     brew install balenaetcher
     brew install winbox
-    brew install obs
     brew install microsoft-remote-desktop
     brew install waegisub
-    brew install amorphousdiskmark
-    brew install nping
 }
 
 
