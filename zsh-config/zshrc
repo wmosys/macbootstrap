@@ -29,6 +29,7 @@ export GPG_TTY=$(tty)
 #=========================================================================
 # Maven
 export MAVEN_HOME=$HOME/Server/apache-maven
+export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true "
 export PATH=$PATH:$MAVEN_HOME/bin
 # Maven Daemon
 export MAVEN_DAEMON_HOME=$HOME/Server/apache-maven-mvnd
@@ -37,7 +38,9 @@ export PATH=$PATH:$MAVEN_DAEMON_HOME/bin
 export ANT_HOME=$HOME/Server/apache-ant
 export PATH=$PATH:$ANT_HOME/lib/bin
 # MySQL Client
-export PATH="/opt/homebrew/opt/mysql-client@8.0/bin:$PATH"
+export PATH="bash --version/mysql-client/bin:$PATH"
+# Java
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
 #=========================================================================
 
 
@@ -49,10 +52,16 @@ export BREW_PREFIX="/usr/local"
 if [[ "${CPU_ARCHITECTUR}" = "Darwin arm64" ]] then BREW_PREFIX="/opt/homebrew"; fi
 export PATH="$PATH:/usr/local/sbin"
 # 清华大学镜像源
-export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
-export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+#export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+#export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+#export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+#export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/git/homebrew/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/git/homebrew/homebrew-core.git"
+
 export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
 # Homebrew 并发下载
 HOMEBREW_DOWNLOAD_CONCURRENCY=auto
@@ -161,6 +170,7 @@ export PATH="$PATH:$N_PREFIX/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 eval "$(jenv init -)"
 #=========================================================================
+
 
 #=========================================================================
 # asdf

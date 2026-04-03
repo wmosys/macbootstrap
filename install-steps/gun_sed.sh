@@ -50,15 +50,15 @@ brew_install exiftool
 brew_install ranger
 brew_install cloc
 brew_install jenv
+brew_install fnm
 # brew_install asdf
 brew_install neofetch
 $(brew --prefix)/opt/fzf/install --all
 
-if [[ ! -e /usr/local/opt/asdf ]]; then
-    brew_install asdf
-    asdf plugin add java
-    asdf plugin add nodejs
-else
-    echo "You have installed coreutils"
-fi
-
+# if [[ ! -e /opt/homebrew/opt/asdf ]]; then
+#     brew_install asdf
+#     asdf plugin add java
+#     asdf plugin add nodejs
+# else
+#     echo "You have installed coreutils"
+# fi

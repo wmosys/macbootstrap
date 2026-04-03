@@ -1,23 +1,20 @@
-# Disable guest account
+# 禁用访客账户
 sudo bash install-steps/guest_account.sh disable
 
-# Use F1-F12 as standard function keys
+# 使用 F1-F12 作为标准功能键
 defaults write -globalDomain com.apple.keyboard.fnState -int 1
 
 # 开启完全键盘控制
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Auto hide and show Dock
-# defaults write com.apple.dock autohide -bool true
-
-# Hide some app icons in Dock and make dock lays left
+# 隐藏部分应用图标于 Dock，并将 Dock 布局设置为左侧
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock orientation -string left
 
 # 显示电池电量百分比
 # defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
-# Disable menu bar transparency
+# 关闭菜单栏透明效果
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
 # Optimize window resize speed
@@ -32,16 +29,11 @@ defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Config Finder
-defaults write com.apple.finder CreateDesktop true;
-defaults write com.apple.finder QLEnableTextSelection -boolean true;
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -boolean false;
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -boolean false;
-defaults write com.apple.finder FXEnableExtensionChangeWarning -boolean false;
-
-# Enable clickpad Tap to click
-defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-[ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db
+# defaults write com.apple.finder CreateDesktop true;
+# defaults write com.apple.finder QLEnableTextSelection -boolean true;
+# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -boolean false;
+# defaults write com.apple.finder ShowRemovableMediaOnDesktop -boolean false;
+# defaults write com.apple.finder FXEnableExtensionChangeWarning -boolean false;
 
 # Enable three finger to drag
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
@@ -69,15 +61,16 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 sudo spctl --master-disable
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Disable auto correct
+# 关闭自动校正
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false 
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
-# Allow full screen mode of simulator
+# 允许模拟器全屏模式
 defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
 
-# Make configurations works
+# 使配置生效
+defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
 echo "Restart Finder Dock Mail SystemUIServer"
 for app in Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done
 

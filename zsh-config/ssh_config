@@ -66,14 +66,7 @@ Host rack
     Port 5300
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# tencent-cloud-lfz
-Host tx-cloud-lfz
-    user root
-    HostName 175.178.34.78
-    Port 22
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
-
-# tencent-cloud-lfz
+# tencent-cloud
 Host tx-cloud-mosy
     user root
     HostName 175.178.165.55
@@ -169,9 +162,15 @@ Host pve-app
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-Host pve-app2
+Host pve-ai1
     User root
     HostName 10.88.20.11
+    Port 22
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+Host pve-ai2
+    User root
+    HostName 10.88.20.12
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 

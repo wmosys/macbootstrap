@@ -72,7 +72,7 @@ function install_personal_apps() {
     brew install visual-studio-code
     brew install balenaetcher
     brew install winbox
-    brew install microsoft-remote-desktop
+    brew install windows-app
     brew install waegisub
 }
 

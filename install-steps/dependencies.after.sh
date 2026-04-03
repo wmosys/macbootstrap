@@ -34,8 +34,21 @@ sudo gem update --system 2.7.6
 # sudo gem install -n /usr/local/bin cocoapods-plugins
 # sudo gem install colored
 
-# nvm & npm install
-if [[ ! -d $HOME/.nvm ]]; then
+# fnm & npm install
+if [[ ! -e /opt/homebrew/opt/fnm ]]; then
+    brew_install fnm
+    fnm install 24
+
+    npm config set registry http://mirrors.tencent.com/npm/
+    npm config set strict-ssl false
+    npm config delete proxy
+    npm config delete https-proxy
+    npm config list
+else
+    echo "You have installed fnm"
+fi
+
+if [[ ! -d $HOME/. ]]; then
     mkdir $HOME/.nvm
     export NVM_DIR="$HOME/.nvm"
     source $(brew --prefix nvm)/nvm.sh
