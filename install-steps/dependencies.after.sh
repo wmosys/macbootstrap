@@ -48,15 +48,6 @@ else
     echo "You have installed fnm"
 fi
 
-if [[ ! -d $HOME/. ]]; then
-    mkdir $HOME/.nvm
-    export NVM_DIR="$HOME/.nvm"
-    source $(brew --prefix nvm)/nvm.sh
-    export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
-    nvm install 18
-    ./install-steps/node_global.sh
-fi
-
 # 
 # hook login
 #./install-steps/hook_login.sh
