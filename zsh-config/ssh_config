@@ -59,19 +59,42 @@ Host Mosys-Gitee
     # UseKeychain yes
     # AddKeysToAgent yes
 
-# RackNerd
-Host rack
-    User root
-    HostName 192.3.84.128
-    Port 5300
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
-
 # tencent-cloud
 Host tx-cloud-mosy
     user root
     HostName 175.178.165.55
     Port 23
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# tencent-cloud
+Host tc-sg
+    user root
+    HostName 43.134.8.145
+    Port 233
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# tencent-cloud
+Host tc-sg-nebula
+    user root
+    HostName 10.201.0.2
+    Port 233
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# voyracloud-us
+Host voyracloud-us
+    user root
+    HostName 69.17.3.217
+    Port 1223
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+
+# rabisu
+Host rabisu
+    user root
+    HostName 172.252.125.233
+    Port 233
+    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+    # ProxyCommand ssh tx-cloud-mosy -W %h:%p
+
 ########################################################################################################
 
 
@@ -147,13 +170,12 @@ Host pve-work1
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-# PVE Work Docker
-Host pve-work2
+# PVE DB
+Host pve-db
     User root
-    HostName 10.88.22.2
+    HostName 10.88.20.9
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
-
 
 # PVE APP
 Host pve-app
@@ -168,7 +190,7 @@ Host pve-ai1
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
-Host pve-ai2
+Host pve-hermes
     User root
     HostName 10.88.20.12
     Port 22
@@ -281,7 +303,7 @@ Host kayakdeepin
 
 Host kayak-proxy
     User root
-    HostName 172.23.4.98
+    HostName 172.23.24.10
     Port 22
     IdentityFile /Users/mosy/.ssh/id_rsa_kayak_mosy
 
@@ -305,7 +327,7 @@ Host kayak-172.23.24.26
 Host 172.23.24.26
     ProxyCommand ssh kayak-proxy -W %h:%p
 Host kayak-172.23.4.*
-    ProxyCommand ssh kayak-jc-proxy -W %h:%p
+    ProxyCommand ssh kayak-proxy -W %h:%p
 
 # Kayak
 Host kayak-172.23.4.13

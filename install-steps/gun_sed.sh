@@ -51,6 +51,6 @@ brew_install ranger
 brew_install cloc
 brew_install jenv
 brew_install fnm
-brew_install neofetch
+brew_install eza
 $(brew --prefix)/opt/fzf/install --all
 

@@ -212,21 +212,20 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
   ##################################[ dir: current directory ]##################################
-  # Current directory background color.
+  # 当前目录背景色
   typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
-  # Default current directory foreground color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
-  # If directory is too long, shorten some of its segments to the shortest possible unique
-  # prefix. The shortened directory can be tab-completed to the original.
+  # 默认当前目录前景色
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=0
+  # 如果目录路径过长，则将其部分段缩短至最短的唯一前缀
+  # 缩短后的目录可通过 Tab 键补全回原始路径
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
-  # Replace removed segment suffixes with this symbol.
+  # 用此符号替换被移除的段后缀
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
-  # Color of the shortened directory segments.
+  # 缩短后目录段的颜色
   typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=250
-  # Color of the anchor directory segments. Anchor segments are never shortened. The first
-  # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=255
-  # Display anchor directory segments in bold.
+  # 锚定目录段的颜色. 锚定段永远不会被缩短. 第一个段始终是锚定段.
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=0
+  # 以粗体显示锚定目录段.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
   local anchor_files=(

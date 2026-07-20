@@ -74,6 +74,8 @@ function install_personal_apps() {
     brew install winbox
     brew install windows-app
     brew install waegisub
+    brew install cc-switch
+    brew install telegram-desktop
 }
 
 

@@ -59,8 +59,13 @@ alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
 # alias
-alias l='ls -lhG'
-alias ll='ls -lhG'
+# alias l='ls -lhG'
+# alias ll='ls -lhG'
+alias l='eza -lh'
+alias la='eza -lAh'
+alias ll='eza -lh'
+alias ls='eza -G'
+alias lsa='ls -lah'
 alias o='open'
 alias oo='open .'
 alias src='source ~/.zshrc'

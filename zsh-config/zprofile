@@ -1,0 +1,64 @@
+# Locale
+export LANG="zh_CN.UTF-8"
+
+#------------------------------------------------------------------------------------------------------------------------
+# Homebrew
+#------------------------------------------------------------------------------------------------------------------------
+export BREW_PREFIX="/opt/homebrew"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+export HOMEBREW_DOWNLOAD_CONCURRENCY="auto"
+export HOMEBREW_NO_AUTO_UPDATE="true"
+_MOSY_HOMEBREW_ZSH_COMPLETION="$BREW_PREFIX/share/zsh/site-functions"
+
+
+#------------------------------------------------------------------------------------------------------------------------
+# JDK
+#------------------------------------------------------------------------------------------------------------------------
+# Java：KCloud 使用 JDK 21 编译，release 17 字节码
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+
+#------------------------------------------------------------------------------------------------------------------------
+# Maven
+#------------------------------------------------------------------------------------------------------------------------
+export MAVEN_HOME="$HOME/Server/apache-maven"
+export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true "
+
+# Maven Daemon
+export MAVEN_DAEMON_HOME="$HOME/Server/apache-maven-mvnd"
+
+# Ant
+export ANT_HOME="$HOME/Server/apache-ant"
+
+#------------------------------------------------------------------------------------------------------------------------
+# Node.js
+#------------------------------------------------------------------------------------------------------------------------
+# Node.js / FNM
+export FNM_NODE_DIST_MIRROR="https://mirrors.tencent.com/nodejs-release/"
+
+# Python / pyenv
+export PYTHON_BUILD_MIRROR_URL="https://mirrors.aliyun.com/python-release/"
+export PYENV_ROOT="$HOME/.pyenv"
+
+# Development command paths. zsh path array is de-duplicated automatically.
+typeset -U path PATH
+path=(
+  "$HOME/.local/bin"
+  "$JAVA_HOME/bin"
+  "$MAVEN_HOME/bin"
+  "$MAVEN_DAEMON_HOME/bin"
+  "$ANT_HOME/bin"
+  "$BREW_PREFIX/bin"
+  "$BREW_PREFIX/sbin"
+  "$BREW_PREFIX/opt/mysql-client/bin"
+  "$BREW_PREFIX/opt/coreutils/libexec/gnubin"
+  "$PYENV_ROOT/shims"
+  "$PYENV_ROOT/bin"
+  "$HOME/.jenv/bin"
+  "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+  $path
+)
+export PATH

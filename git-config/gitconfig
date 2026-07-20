@@ -49,10 +49,10 @@
 [user]
 	name = mosy
 	email = mmosy@outlook.com
-	signingkey = 368B0D29D38D4B4EEE5BF51EB2468CF4358BF1CF
+	signingKey = 7008B0D300D7E9180C96188D79CAD89A7781CF5E
 [commit]
 	template = /Users/mosy/.stCommitMsg
-	gpgsign = true
+	gpgSign = true
 [mergetool]
     keepBackup = false
 [filter "lfs"]
@@ -64,3 +64,8 @@
 	rebase = false
 [gpg]
 	program = /usr/local/MacGPG2/bin/gpg2
+	format = openpgp
+[tag]
+	forceSignAnnotated = false
+[gpg "ssh"]
+	program = ssh-keygen
