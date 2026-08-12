@@ -117,7 +117,3 @@ Zsh 相关的函数与配置（主要是对部分 Unix 命令的封装）都在 
 - Apple Silicon（Homebrew 前缀 `/opt/homebrew`）：通常无需 chown，确认 `/opt/homebrew/bin` 已加入 `PATH` 即可。
 
 具体包含的工具与用法参考 [Homebrew 工具](./doc/tools.md)。
-
-# 讨论
-
-如对项目有建议或反馈，可发送邮件到 [bestswifter@gmail.com](mailto:bestswifter@gmail.com)。
