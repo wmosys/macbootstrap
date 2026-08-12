@@ -1,70 +1,99 @@
-# 这部分内容主要介绍对默认 OS X 系统所做的修改
+# 系统配置优化
 
-有些配置无法立即生效，因此建议安装完以后注销再登录一次，即可看到效果
+本节介绍 `install-steps/macos.sh` 对 macOS 默认设置所做的修改。脚本以 `sudo` 执行，写入的是系统级偏好，部分改动需要注销再登录（或重启相关进程）后才会生效。脚本末尾会自动重启 Finder、Dock、Mail、SystemUIServer。
 
-## 交换 F1-F12 与特殊按键
+## 键盘
 
-默认情况下，键盘上的 F1-F12 是特殊键，偏向娱乐，比如 F1、F2 调整亮度，F11、F12
-调整声音等。但程序员没必要总是折腾这些。
+### 将 F1-F12 作为标准功能键
 
-其实 F1-F12 可以用作快捷键，但需要配合键盘左下角的 Fn
-键一起按下。此脚本的作用是让 F1 键成为真正的 F1，如果调节亮度才需要 Fn + F1:
+默认情况下 F1-F12 是特殊键（调整亮度、音量等），作为功能键需配合 Fn。以下命令让 F1-F12 直接作为功能键，调节媒体功能时才需要 Fn：
 
 ```shell
 defaults write -globalDomain com.apple.keyboard.fnState -int 1
 ```
 
-## 开启完全键盘控制
+### 开启完全键盘控制
 
-在 Mac OS 弹出的对话框中，经常需要切换选项：
+在 macOS 弹出的对话框中，可用 `Tab` 在选项间切换、用空格确认，不必移动鼠标：
 
-![](http://blog.bestswifter.com/1515801904.png)
-
-如图所示，默认选中的是左侧的选项，我们不用移动鼠标点击右边的选项，只要按下 <Tab>
-键即可切换到右侧选项，再按下空格键就可以选中了。
-
-以上特性需要完全开启键盘控制，由下面这行代码实现：
+![](http://blog.bestswifter.com/1515801904.png)（图片可能已失效）
 
 ```shell
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 ```
 
-## 自动展示/隐藏 dock
+## 触控板
 
-在 Alfred 等软件中可以配置各个软件的全局打开快捷键，所以没必要一直显示着 Dock
-去占用空间，可以设置为自动隐藏：
+### 开启三指拖动
 
-```shell
-defaults write com.apple.dock autohide -bool true
-```
-
-## 显示电池电量百分比
-
-使用这行命令可以显示电量百分比：
+开启后可用三指拖动非全屏窗口改变位置：
 
 ```shell
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
 
-## 加速窗口大小调整动画
+> 触控板「轻点点击」（Tap to Click）在历史文档中出现过，但当前 `macos.sh` 并未写入该设置，如需开启请在「系统设置 → 触控板」中手动打开。
 
-通过减少延迟时间，可以加速窗口大小调整时的动画：
+## Dock 与菜单栏
+
+### Dock 移至左侧并清空
+
+当前脚本将 Dock 移到屏幕左侧，并清空其持久化应用列表（不使用自动隐藏）：
+
+```shell
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock orientation -string left
+```
+
+> 历史文档记录过 `com.apple.dock autohide -bool true`，当前脚本未启用自动隐藏。
+
+### 关闭菜单栏透明度
+
+```shell
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
+```
+
+### 隐藏菜单栏图标
+
+通过覆盖预置 plist 隐藏菜单栏中的 Siri 与输入法图标：
+
+```shell
+cp config/com.apple.Siri.plist ~/Library/Preferences/
+cp config/com.apple.systemuiserver.plist ~/Library/Preferences/
+```
+
+同时移除 AirPlay 的菜单栏图标：
+
+```shell
+defaults write com.apple.airplay showInMenuBarIfPresent -bool false
+```
+
+## 窗口动画
+
+缩短窗口调整大小时的动画延迟：
 
 ```shell
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 ```
 
-## Finder 中总是显示文件名的后缀
+## Finder 与文件
 
-再也不会因为后缀名被隐藏而造成烦恼了
+### 总是显示文件扩展名
 
 ```shell
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 ```
 
+### 显示 ~/Library 目录
+
+```shell
+chflags nohidden ~/Library
+```
+
 ## 禁用镜像文件验证
 
-打开大的 DMG 文件时，验证过程也是蛮繁琐的，可以关闭：
+打开较大的 DMG 时可跳过验证：
 
 ```shell
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -72,54 +101,53 @@ defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 ```
 
-## 启用触摸板轻触点击
+## 关闭应用验证
 
-再也不用咔擦咔擦狂戳触摸板了，轻轻触摸就起到了点击的作用，非常优雅：
-
-```shell
-defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-```
-
-## 开启三指拖动
-
-开启这个功能后，我们可以用三个手指拖动非全屏窗口，改变他们的位置。主要靠这两行命令实现：
-
-```shell
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
-```
-
-## 显示~/Library/ 目录
-
-这个目录默认是隐藏的，我们可以在不显示所有隐藏文件的前提下单独显示它：
-
-```shell
-chflags nohidden ~/Library
-```
-
-## 禁用 App 验证
-
-默认情况下系统禁止安装第三方的App，打开前也会有弹窗让用户确认，通过以下两行代码可以 绕过：
+允许安装第三方应用，并关闭首次打开的确认弹窗：
 
 ```shell
 sudo spctl --master-disable
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 ```
 
-## 禁用文字自动更正
+## 截图
 
-很多时候系统的自动改正功能反而会帮倒忙，比如：
-
-1. 明明每行第一个字母我就是要小写，结果自动改成大写
-2. 有时候明明要输入普通的引号，`'` 或者`"`，结果被自动改成斜体的 `“`，导致各种解析错误
-3. 有时候输入两个连字符(dash) `--` 被自动改成为长的(emdash) `—`
-
-这些自动改正可以用以下命令来禁止：
+关闭截图的窗口阴影：
 
 ```shell
-defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+defaults write com.apple.screencapture disable-shadow -bool true
+```
+
+## 禁用文字自动替换
+
+关闭智能引号、智能破折号与自动拼写校正，避免输入 `'`、`"`、`--` 时被自动改写：
+
+```shell
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 ```
+
+## iOS 模拟器
+
+允许模拟器进入全屏模式：
+
+```shell
+defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
+```
+
+## 访客账户
+
+禁用 macOS 访客账户，由 `install-steps/guest_account.sh disable` 完成（基于 `dscl` 与 `security`，需要 root）。该脚本也支持手动调用：
+
+```shell
+sudo ./install-steps/guest_account.sh enable    # 启用访客
+sudo ./install-steps/guest_account.sh disable   # 禁用访客
+```
+
+## 未启用的配置
+
+以下设置在 `macos.sh` 中以注释形式保留，默认不生效，可按需手动执行：
+
+- 电池百分比：`defaults write com.apple.menuextra.battery ShowPercent -string "YES"`（Apple Silicon 上由「系统设置 → 控制中心」的开关控制）
+- Finder 相关：`CreateDesktop`（桌面图标）、`QLEnableTextSelection`、`ShowExternalHardDrivesOnDesktop`、`ShowRemovableMediaOnDesktop`、`FXEnableExtensionChangeWarning`（扩展名变更警告）

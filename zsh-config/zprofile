@@ -2,6 +2,11 @@
 export LANG="zh_CN.UTF-8"
 
 #------------------------------------------------------------------------------------------------------------------------
+# bat
+#------------------------------------------------------------------------------------------------------------------------
+export BAT_CONFIG_PATH="$HOME/.macbootstrap/zsh-config/bat.conf"
+
+#------------------------------------------------------------------------------------------------------------------------
 # Homebrew
 #------------------------------------------------------------------------------------------------------------------------
 export BREW_PREFIX="/opt/homebrew"
@@ -26,10 +31,8 @@ export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
 #------------------------------------------------------------------------------------------------------------------------
 export MAVEN_HOME="$HOME/Server/apache-maven"
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true "
-
 # Maven Daemon
 export MAVEN_DAEMON_HOME="$HOME/Server/apache-maven-mvnd"
-
 # Ant
 export ANT_HOME="$HOME/Server/apache-ant"
 
@@ -37,8 +40,12 @@ export ANT_HOME="$HOME/Server/apache-ant"
 # Node.js
 #------------------------------------------------------------------------------------------------------------------------
 # Node.js / FNM
+export NODE_MIRROR="https://mirrors.aliyun.com/nodejs-release/"
 export FNM_NODE_DIST_MIRROR="https://mirrors.tencent.com/nodejs-release/"
 
+#------------------------------------------------------------------------------------------------------------------------
+# Python
+#------------------------------------------------------------------------------------------------------------------------
 # Python / pyenv
 export PYTHON_BUILD_MIRROR_URL="https://mirrors.aliyun.com/python-release/"
 export PYENV_ROOT="$HOME/.pyenv"

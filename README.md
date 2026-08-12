@@ -1,71 +1,123 @@
 # 介绍
 
-这是一个针对新 Mac 开发的，快速配置开发环境的脚本，里面集成了一些常用的配置。所有的配置和功能都有文档说明， 它既是使用手册，也是教学指南。
+macbootstrap 是一套面向新 Mac 的开发环境一键配置脚本，集成常用的系统配置、命令行工具、Zsh 与 Git 快捷命令，以及 Vim、VSCode 等编辑器配置。所有配置与功能均有配套文档说明，既是使用手册，也是实现参考。
 
-读者可以先阅读 [这些问题](./doc/features.md)，如果这些问题你并没有简单的方式去实现，那么不妨考虑下 macbootstrap
+第一次接触本项目，可以先阅读 [这些问题](./doc/features.md)。如果当前没有更简单的方式实现这些需求，可以考虑使用 macbootstrap。
 
-除非你做过大量配置，而且没有备份，否则也可以推荐使用这个脚本。虽然不能完全保证 100% 的安全，但重要的文件基本上都做了备份，比如原先的 `~/.zshrc` 文件会被备份为 `~/.zshrc_backup`
+重要文件在覆盖前会自动备份。例如原有的 `~/.zshrc` 会改名为 `~/.zshrc_backup`，被备份的还包括 `~/.gitconfig`、`~/.gitattributes`、`~/.ssh/config`、`~/.p10k.zsh`、`~/.config/nvim/` 与 ranger 配置等，统一加上 `_backup` 后缀。
 
-我深知，环境配置是一件非常主观的事，不同的人审美和需求不一样，所以如果不愿意使用我的这套配置，也可以看看文档，了解一些好玩的用法，看看它是怎么实现的，然后把部分函数抄走并提高自己的工作效率。
+环境配置是一件主观的事，不同人的审美与需求并不一致。如果不打算整体采用这套配置，也可以只浏览文档，了解其中的实现思路，把有用的函数迁移到自己的环境里。
 
-**再次警告⚠️， 本项目是为新电脑设计，虽然做了一些保护，请依然谨慎在生产环境中使用此配置，对于因此造成的配置丢失和错乱，作者不负任何责任**
+本项目主要面向新电脑初始化。虽然做了备份保护，仍不建议直接用于生产环境，因配置丢失或错乱造成的后果需自行承担。
 
-# 安装方式
+# 安装
 
-只需要执行以下代码即可：
-
-```shell
-curl https://raw.githubusercontent.com/bestswifter/macbootstrap/master/bootstrap.sh | sh
-```
-
-这个命令会安装 `HomeBrew`，如果是全新的电脑还会安装 Xcode 命令行工具（包括 gcc 等），这是必须的，绝大多数命令行程序都依赖这个。如果安装失败，可以手动执行 `xcode-select --install` 命令。如果还是无法安装，需要去[苹果官网](https://developer.apple.com/download/more/)手动下载安装
-
-当然，大概率是不会出现任何问题的。
-
-# 特色
-
- 这份脚本主要包含以下几个方面的配置：
-
- 1. 对系统选项的一些基本修改
- 2. 常用的 Homebrew 工具
- 3. 基于 zsh 的，能够提高工作效率的命令，包括 git 的快捷命令
- 4. Vim 配置
- 5. 未来会考虑加入特定软件的配置以及 npm、pip 等依赖的配置
-
-**使用文档正在逐步整理中。。。**
-
-## 系统配置
-
-为了增强 Mac OS X 的使用体验，我对系统原生的配置做了一些基本的、必备的修改。
-
-详细的原因、改动方式和效果请参考 [系统配置优化](./doc/system.md) 这一节。
-
-## Homebrew
-
-如果出现请 **The formula built, but is not symlinked into /usr/local** 的报错，这可能会导致 link 失败，请执行
+执行以下命令即可完成一键安装：
 
 ```shell
-sudo chown -R `whoami` /usr/local
+curl https://raw.githubusercontent.com/wmosys/macbootstrap/master/bootstrap.sh | sh
 ```
 
-具体包含的工具，以及用法请参考: [HomeBrew 工具](./doc/tools.md)
- 
-## Zsh
-   
-所有 Zsh 相关的函数、配置（主要是对一些 Unix 函数的封装）都在 `zsh-config` 目录下。
+安装脚本（`bootstrap.sh`）会按顺序完成：
 
-入口文件是 `common.sh`，其中我个人的配置放在 `personalized.sh` 中，如果使用者不需要，可以删除这个文件。
+1. 安装 Homebrew（使用中科大与清华镜像加速，静默安装）
+2. 在全新电脑上安装 Xcode 命令行工具（含 gcc 等），绝大多数命令行程序依赖此项；若自动安装失败，可手动执行 `xcode-select --install`
+3. 将本仓库 clone 到 `~/.macbootstrap`
+4. 执行 `install.sh`，按顺序调用 `install-steps/` 下的各安装步骤脚本
 
-具体文档请参考这份说明：[Zsh 相关](./doc/zsh.md)
+如果不使用一键命令，也可以手动安装：
 
-## Git
+```shell
+git clone https://github.com/wmosys/macbootstrap.git ~/.macbootstrap
+cd ~/.macbootstrap
+bash install.sh
+```
 
-详细教程请参考这份说明：[Git 使用指南](./doc/git.md)
+# 安装架构
 
-## Vim
+仓库结构与各目录用途如下。
 
-详细用法与教程请参考这份说明: [Vim 使用指南](./doc/vim.md)
+## install-steps/
 
-## 讨论交流
+被 `install.sh` 顺序调用的安装步骤脚本：
 
-为了避免无意义的加群，请发送邮件到 [bestswifter@gmail.com](mailto:bestswifter@gmail.com)，介绍你对本书的看法和期待，字数不限，我会回复微信号并拉你进群。
+- `gun_sed.sh`：安装 oh-my-zsh、gnu-sed、coreutils 及一批 brew 工具（git、git-flow、python3、fzf、fd、ag、neovim、ranger、jenv、fnm、eza、bat 等）
+- `applications.sh`：通过 `brew install --cask` 安装 GUI 应用（iTerm2、SourceTree、Google Chrome、QuickLook 扩展、The Unarchiver 等）
+- `configuration.sh`：建立 dotfile 软链（`~/.zshrc`、`~/.gitconfig`、`~/.ssh/config`、`~/.p10k.zsh`、`~/.config/nvim`、ranger 配置等），并克隆 powerlevel10k、zsh-syntax-highlighting、zsh-autosuggestions、vim-config
+- `dependencies.after.sh`：安装 chisel 用于 LLDB 调试，写入 `~/.lldbinit`
+- `macos.sh`：以 `sudo` 执行，集中写入 macOS 系统偏好（Dock、功能键、访客账户、截图、拼写校正等），随后重启 Finder、Dock 等进程
+- `personal.sh`：个人定制，仅当当前用户为 `mosy` 时执行（Git 身份、SSH 私钥、GPG 签名、个人应用清单等）
+
+## 其他目录
+
+- `zsh-config/`：Zsh 配置与功能模块，入口与加载链见下文 [Zsh](#zsh) 一节
+- `git-config/`：gitconfig、gitattributes 与 GPG 密钥
+- `config/`：应用预置 plist（iTerm2 等）、ranger 配置、shadowsocks 配置、`.lldbinit`
+- `ssh/`：SSH 相关辅助脚本
+- `tools/`：iTerm2 zmodem 脚本、Alfred 配置、json_pretty 等小工具
+- `profile/`：shell 历史文件 `.histfile`
+- `software/`：预留的软件包目录
+- `doc/`：各模块使用文档
+
+## 根目录脚本
+
+- `bootstrap.sh`：一键安装入口
+- `install.sh`：安装流程编排，顺序调用 `install-steps/` 各脚本
+- `basic.sh`：提供 `brew_install`、`backup_file`、`bs_cp` 等公共函数
+- `backup_config.sh`、`clean.sh`、`install_homebrew.sh`、`onlogin.sh`：备份、清理、Homebrew 安装、登录钩子等辅助脚本
+
+# 能力概览
+
+这套脚本主要覆盖以下配置：
+
+- macOS 系统偏好的基础调整
+- 常用 Homebrew 工具与 GUI 应用
+- 基于 Zsh 的效率命令，以及 Git 快捷命令
+- Vim 与 VSCode 配置
+- 语言版本管理器：pyenv（Python）、fnm（Node.js）、jenv（Java）、Maven，相关初始化已写入 `zsh-config/zprofile` 与 `zshrc`
+
+各模块的详细用法见下文文档导航。
+
+# 文档导航
+
+- 常见问题与功能一览：[features.md](./doc/features.md)
+- 系统配置优化：[system.md](./doc/system.md)
+- Homebrew 工具：[tools.md](./doc/tools.md)
+- Zsh 相关：[zsh.md](./doc/zsh.md)
+- Git 使用指南：[git.md](./doc/git.md)
+- Vim 使用指南：[vim.md](./doc/vim.md)
+- VSCode 使用指南：[vscode.md](./doc/vscode.md)
+
+# Zsh
+
+Zsh 相关的函数与配置（主要是对部分 Unix 命令的封装）都在 `zsh-config/` 目录下。
+
+入口文件是 `zshrc`，安装时软链到 `~/.zshrc`。其加载链为：
+
+1. `zshrc` 先 `source` 根目录的 `basic.sh`，获得公共函数
+2. 再 `source` `zsh-config/common.sh`
+3. `common.sh` 作为模块聚合器，依次加载 `alias.sh`、`git.sh`、`grep.sh`、`fzf.sh`、`tools.sh`、`functions/` 等功能模块
+
+因此整体入口是 `zshrc`，`common.sh` 是 `zsh-config/` 目录下的模块加载器。
+
+`personalized.sh` 的加载语句在 `common.sh` 中目前处于注释状态，默认不加载，可按需启用。
+
+详细文档参考 [Zsh 相关](./doc/zsh.md)。
+
+# Homebrew 排错
+
+如果安装时出现「The formula built, but is not symlinked into /usr/local」并导致 link 失败，按 CPU 架构处理：
+
+- Intel（Homebrew 前缀 `/usr/local`）：
+
+  ```shell
+  sudo chown -R $(whoami) /usr/local
+  ```
+
+- Apple Silicon（Homebrew 前缀 `/opt/homebrew`）：通常无需 chown，确认 `/opt/homebrew/bin` 已加入 `PATH` 即可。
+
+具体包含的工具与用法参考 [Homebrew 工具](./doc/tools.md)。
+
+# 讨论
+
+如对项目有建议或反馈，可发送邮件到 [bestswifter@gmail.com](mailto:bestswifter@gmail.com)。

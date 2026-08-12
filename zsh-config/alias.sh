@@ -61,6 +61,7 @@ alias -g NUL="> /dev/null 2>&1"
 # alias
 # alias l='ls -lhG'
 # alias ll='ls -lhG'
+# eza
 alias l='eza -lh'
 alias la='eza -lAh'
 alias ll='eza -lh'
@@ -70,6 +71,9 @@ alias o='open'
 alias oo='open .'
 alias src='source ~/.zshrc'
 alias rezsh='exec zsh'
+
+# bat
+alias cat='bat'
 
 # Tools
 alias myip="curl -L ip.fm"

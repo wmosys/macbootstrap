@@ -74,18 +74,12 @@ Host tc-sg
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
 
 # tencent-cloud
-Host tc-sg-nebula
+Host tc-sg-gz
     user root
     HostName 10.201.0.2
     Port 233
     IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
-
-# voyracloud-us
-Host voyracloud-us
-    user root
-    HostName 69.17.3.217
-    Port 1223
-    IdentityFile /Users/mosy/.ssh/id_rsa_mosy_outlook
+    ProxyCommand ssh tx-cloud-mosy -W %h:%p
 
 # rabisu
 Host rabisu

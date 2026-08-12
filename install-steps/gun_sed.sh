@@ -52,5 +52,6 @@ brew_install cloc
 brew_install jenv
 brew_install fnm
 brew_install eza
+brew_install bat
 $(brew --prefix)/opt/fzf/install --all
 

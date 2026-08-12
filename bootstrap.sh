@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 [ -z "${BRANCH}" ] && export BRANCH="master"
 
 if [[ -e ~/.macbootstrap ]]; then
@@ -24,6 +24,6 @@ fi
 
 brew install git
 
-git clone --depth=1 -b ${BRANCH} https://github.com/bestswifter/macbootstrap.git ~/.macbootstrap
+git clone --depth=1 -b ${BRANCH} https://github.com/wmosys/macbootstrap.git ~/.macbootstrap
 cd ~/.macbootstrap
 bash install.sh

@@ -1,158 +1,120 @@
 # Git 的常用封装
 
+macbootstrap 在 `zsh-config/git.sh` 与 `git-config/gitconfig` 中封装了大量 Git 快捷命令。下面按使用场景分组介绍当前生效的别名与函数。
+
+> 说明：历史版本中存在过 `gcn`、`gvc`、`ggs`、`gst`(stash)、`gpo`、`gt`、`grt` 等别名，目前均已移除或改写，请以本文为准。
+
 ## 帮助信息
 
-1. 输入 `gh COMMAND` 可以获取对应命令的帮助，比如 `gh commit`，等价于 `git help --man commit`，将在终端中打开这个命令的帮助文档
+- `gh COMMAND`：在终端打开某条命令的 man 帮助，等价于 `git help --man`，例如 `gh commit`。
 
-## 配置用户信息
+## 用户信息与签名
 
-1. `gcn bestswifter` 配置用户名，等价于 `git config user.name`
-2. `gcng bestswifter` 配置全局用户名，等价于 `git config --global user.name`
-3. `gce ktzhang@bestswifter.com` 配置邮箱，等价于 `git config user.email`
-4. `gceg ktzhang@bestswifter.com` 配置全局邮箱，等价于 `git config --global user.email`
+用户信息与 GPG 签名由 `install-steps/personal.sh` 的 `init_git()` 自动配置（仅当当前用户为 `mosy` 时执行），通常无需手动设置：
 
-## 配置 GPG key
+- `user.name` 为 `mosy`，`user.email` 为 `mmosy@outlook.com`
+- 导入 GPG 密钥并开启 `commit.gpgsign`
+- `user.signingkey` 在 `personal.sh` 运行后会被设为 `368B0D29D38D4B4EEE5BF51EB2468CF4358BF1CF`
 
-1. 如果使用我的安装脚本可以跳过这一步，否则执行 `brew install gpg` 来安装依赖
-2. 输入 `gpg --full-generate-key` 并按照配置安装，注意第三步选择时长时，如果是个人使用可以填 0，表示永不过期，避免以后的麻烦。最后填写密码时可以不填
-3. 安装完成后输入 `gpg --list-keys` 查看刚刚生成的秘钥，在 pub 下面有一长串数字和字母，这个是 ID
-4. 输入 `gpg --armor --export pub GPG ID` 把公钥复制出来，拷贝到 [GitHub GPG Keys](https://github.com/settings/keys) 上
-5. 输入 `git config --global user.signingkey ID` 来配置使用哪个 key。
-6. 单次提交时使用 `git commit -S` 参数来开启 GPG key，或者使用 `git config --global commit.gpgsign true` 设置为全局默认使用
-7. 输入 `gvc <commit_hash>` 来检查某次提交的 GPG 签名情况，如果没有输出，说明没有签名。它是`git verify-commit` 命令的缩写
-8. 如果遇见签名失败的情况,可尝试将 `export GPG_TTY=$(tty)` 添加到自己的 shell 配置文件中
+如需手动配置 GPG 签名，参考步骤如下：
 
-## git log
+1. `brew install gpg` 安装依赖（使用本脚本则已安装）
+2. `gpg --full-generate-key` 生成密钥；个人使用可选择永不过期（时长填 0）
+3. `gpg --list-keys` 查看密钥 ID
+4. `gpg --armor --export <ID>` 导出公钥，粘贴到 [GitHub GPG Keys](https://github.com/settings/keys)
+5. `git config --global user.signingkey <ID>` 指定签名密钥
+6. `git config --global commit.gpgsign true` 默认开启签名
+7. 若签名失败，将 `export GPG_TTY=$(tty)` 加入 shell 配置（本仓库已在 `zshrc` 中设置）
 
-这个命令非常常用，也非常复杂，常见的有以下几种：
+## 查看状态与历史
 
-1. 输入 `gg`，它会单行展示提交历史，也支持展示分支的关系，如图所示。它的完整命令是 `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit`
-   ![](http://images.bestswifter.com/QQ20171220-114944@2x.png)
-2. 输入 `ggs`，它在 gg 的基础上会展示每次提交具体改动的文件，等价于命令 `gg --stat`，如图所示：
-   ![](http://images.bestswifter.com/QQ20171220-114134@2x.png)
-3. 输入 `ggp`，它在 gg 的基础上会展示文件的具体改动，等价于命令 `gg -p`，如图所示：
-   ![](http://images.bestswifter.com/QQ20171220-120353@2x.png)
-4. 输入 `gga`，可以展示所有的分支，一般建议用它代替 `gg`，它等价于命令 `gg --all`
-5. 不管是`gg`，还是衍生出来的 `ggs` 和 `ggp`，后面都可以加上 `-n`，比如 `ggs -2`，或者 `ggp -1`，表示只显示前 n 个提交
-6. 如果想看某一个区间内的 log，可以输入 `gg HEAD~3..HEAD`，注意区间是左开右闭，所以这个命令会查看三次提交的记录。注意较早的提交要写在左边。
-7. 如果只记得某次提交内容(content)里有一个词，比如 **networksetup**，可以用 `ggp -G networksetup` 来查找所有提交内容中包含 **networksetup** 的提交。-G 选项和 -S 选项主要有两个区别，
-   前者可以接收正则，而后者只会查找那些导致 string 出现次数发现变动的提交，比如把 `name:0` 换成 `name:1`，用 -S 就无法搜索到 name, 因为它的出现次数并没有改变，但是用 -G 可以。
-8. 如果只记得某次提交记录(message)里有一个词，比如 **highlight**，可以用 `ggp --grep highlight` 来查找所有提交记录中包含 **highlight** 的提交
-9. 如果想查看某个文件中某一段代码的提交记录，可以用 `ggp -L start,end:file_name` 命令，详情请参考 [Git grep](https://github.com/bestswifter/macbootstrap/blob/master/doc/git.md#git-grep) 这一节的用法。
-10. 如果想查看某个文件或者文件夹的改动历史，可以输入 `gg file_name`，当然 `ggs` 和 `ggp` 也都是支持的。
+- `gs`：查看工作区状态。若安装了 `scmpuff` 则使用其增强输出，否则回退到 `git status`。
+- `gss`：`git status --short`，简洁模式。
+- `gg`：`git lg`，单行图形化提交历史（带分支关系）。完整格式定义在 `gitconfig` 的 `lg` 别名中。
 
-## git branch
+  ![](http://images.bestswifter.com/QQ20171220-114944@2x.png)（图片可能已失效）
 
-1. 输入 `gco branch` 可以 checkout 到某个分支上，等价于命令 `git checkout`，注意如果有未提交的改动，请不要切换分支。
-2. 输入 `gb`，它会展示所有本地分支，等价于命令 `git branch`, 输入命令 `gbv` 可以额外显示每个分支的最后一次提交和这个分支跟踪的远程分支，等价于命令 `git branch -vv`
-3. 输入 `gb branch_name` 表示创建一个分支，指向当前提交，`gb branch_name commit` 表示新建一个分支并指向某个 commit，注意这两个命令都不会切换分支。
-4. 输入 `gba`，查看本地和远程分支，等价于命令 `git branch -a`，输入命令 `gbr`，查看远程分支，等价于命令 `git branch --remote`
-5. 输入 `gcb new_branch` 可以创建分支 **new_branch** 并切换到这个分支上，它是 `git check -b` 命令的缩写，等价于 `git branch new_branch` 和 `git checkout new_branch` 这两条命令
-6. 输入 `gbd branch_name` 删除某个分支，等价于命令 `git branch -d`
-7. 并非所有分支都可以通过 `gbd` 命令删除，可以通过 `git branch --merged` 来查看已经合入到某个指针(默认是 HEAD)的分支，换句话说是可以通过这个指针回溯到的分支。这个命令也简写为 `gbm`
-8. `gbm` 列出的分支都是**可以抵达**的，因此可用 `gbd` 删除，而 `gbnm` 列出的则是不可达的分支，因此不能用 `gbd` 删除，它是 `git branch --no-merged` 命令的简写
-9. 如果真的要强行删除，可以用 `gbD` 命令，它是 `git branch -D` 的简写
-10. 输入命令 `gbdr` 可以删除远程分支
+- `glp`：`git log -p`，展示每次提交的具体改动。
+- 由于 `gg` 等价于 `git lg`，可在其后追加参数：`gg --stat`（改动文件）、`gg -p`（具体改动）、`gg --all`（所有分支）、`gg -2`（最近两条）、`gg HEAD~3..HEAD`（区间，左开右闭）。
+- 按提交内容搜索用 `gg -G <pattern>`（支持正则）；按提交信息搜索用 `gg --grep <pattern>`。
+- `ggrep`：`git grep --break --heading -n`，在 Git 仓库内替代 `grep`，速度更快且可限定搜索范围。同一文件的匹配会归并在一个文件名下，可读性更好。
 
-有时候我们要从远程仓库检出一个新的分支，比如叫 feature 吧，有几种思路：
+  以查找 `gignore` 的定义位置为例：![](https://diycode.b0.upaiyun.com/photo/2017/dd45040c35ab5011400c7172fbf1ff9b.png)（图片可能已失效）
 
-```shell
-git branch -t feature origin/feature
-git checkout -b feature origin/feature
-git checkout --track origin/feature
-```
+## 分支
 
-第一种写法不太合适，因为它只会创建分支并且跟踪远程分支，并不会切换。我想一般创建分支的时候都是需要切换的，否则你创建它干嘛呢，可以等到要切换的时候再创建呐。
+- `gb`：`git branch`，列出本地分支。
+- `gcb <name>`：`git checkout -b`，新建分支并切换。
+- `gco <branch>`：`git checkout`，切换分支。有未提交改动时请谨慎切换。
+- `gbdr`：删除远程分支（`git push origin :<branch>`），支持 fzf 补全远程分支名。
 
-第二种写法稍微高级些，它和第一种写法一致并且可以切换分支，之前的 tips 中介绍过 `gcb` 后面加单个参数的含义和用法，这里第二个参数表示跟着远程分支。
+> 历史版本的 `gbv`、`gba`、`gbr`、`gbd`、`gbD`、`gbm`、`gbnm`、`gct`、`gtrack` 等别名已移除，对应功能请直接使用原生 Git 命令。
 
-第三中方法最简单，因为它参数少，而且功能和第二种写法一样，我给他起的别名叫 `gct`，对应 `git checkout --track`
+## 暂存与提交
 
-如果想为当前分支设置跟踪的远程分支，输入 `gtrack` 即可，不需要携带参数，它会自动让当前分支跟踪远程的同名分支
+- `ga`：`git add`；`gau`：`git add -u`；`gai`：`git add -i`（交互式）。
+- `gan`：仅添加新增（未跟踪）文件。
+- `gap`：`git add -p`，交互式按块暂存。
 
-## git diff
+  ![](https://diycode.b0.upaiyun.com/photo/2017/ebd89558e4d3a39558eb3b13a39579b4.png)（图片可能已失效）
 
-1. 输入 `gd` 即可查看工作区内的变动，等价于命令 `git diff`
-2. 输入 `gds` 可以查看暂存区的变动，也就是查看那些被 `git add` 了的文件的变动，等价于命令 `git diff --staged`
-3. 输入 `gdc` 可以查看最近一次提交的变动，等价于命令 `git diff HEAD^ HEAD`
-4. 输入 `gdcr` 可以倒过来查看某次提交的变动，它的第一个参数是提交的 SHA-1 值，如果不写则是 HEAD，所以 `gdcr` 和 `gdc` 是恰好相反的 diff。这样的好处是如果
-   想撤销某次提交，只要用 `gdcr sha-1` 就可以获得那次提交的逆提交，如果想要精确到只恢复某个文件，第二个参数可以是文件名。比如 `gdcr sha-1 file_name | git apply`
-5. 输入 `gdt` 即可用外部 diff 工具查看 diff，它是 `git difftool --no-prompt --extcmd "icdiff --line-numbers --no-bold" "$@" | less` 命令的缩写，这个命令依赖 `icdiff` 这个工具，可以用 homebrew 安装。
-6. 输入 `gdts` 和 `gdtc` 可以对应的用外部 diff 查看已暂存和上次提交的变动，这些和 `gds` 与 `gdc` 命令基本上是一样的，区别在于使用外部 diff 工具，会更美观一些（当然速度也会更慢），效果如图所示
-   ![](http://images.bestswifter.com/MacHi-2018-01-02-19-48-29.png)
+  交互模式下的动作：`y` 暂存本块、`n` 跳过、`a` 暂存整个文件、`d` 跳过整个文件、`s` 切分更小块、`e` 手工编辑区块、`/` 正则搜索。其中 `e` 可用来只提交某几行：删去不想暂存的部分即可。
 
-## git push
+- `gc`：`git commit`；`gcm <msg>`：`git commit -m`。
+- `gom`：`git checkout` 所有已修改文件（丢弃工作区改动，慎用）。
 
-1. 输入 `gpo` 可以快速的将提交推送到远程仓库，等价于命令 `git push origin`，如果不写分支名则默认把当前分支推送到远程仓库对应的分支上
-2. 如果远程仓库的名称不是默认的 origin，可以使用 `gp repo_name`，因为 `gp` 等价于 `git push`
+## 差异
 
-## git commit
+- `gd`：`git diff`，工作区改动。
+- `gds`：`git diff --staged`，已暂存改动。
+- `gdc`：`git diff HEAD~ HEAD`，最近一次提交的改动。
+- `gdcr [sha] [file]`：生成某次提交的反向 diff，便于构造逆提交。例如 `gdcr <sha> <file> | git apply` 可精确回退单个文件。
+- `gdt`：以 `icdiff` 作为外部 diff 工具查看改动（依赖 `icdiff`）。
+- `gdr`：递归查看当前仓库及所有子模块的 diff。
+- `gsr`：递归查看当前仓库及所有子模块的状态。
 
-1. 输入 `gcam` 可以在不 add 的前提下一次性提交所有改动，等价于命令 `git commit -a -m`
+## 拉取与推送
 
-输入命令 `git add -p` 就可以交互式的暂存文件，我给这个命令起了别名：`gap`。这个命令后面如果不加参数，会试着暂存所有文件，也可以加上文件名，只 add 某个文件。
+- `gf`：`git fetch`；`gfr`：`git fetch; git rebase`。
+- `gpush`：`git push origin HEAD:dev`。在 macOS 上，`platform.mac.sh` 会将其覆盖为 Gerrit 风格的 `git push origin HEAD:refs/for/<branch>`。
 
-![](https://diycode.b0.upaiyun.com/photo/2017/ebd89558e4d3a39558eb3b13a39579b4.png)
+> 旧的 `gpo`、`gp` 别名已移除。
 
-注意左下角的蓝色文字，这里提供了很多动作命令，解释如下：
+## 合并、变基与重置
 
-1. y: 暂存这个区块
-2. n: 不暂存这个区块
-3. a: 暂存整个文件
-4. d: 不暂存整个文件
-5. g: 跳到某个区块，注意不是所有情况下都有这个选项
-6. j: 跳到下一个还未决定的区块
-7. k: 跳到上一个还未决定的区块
-8. s: 把这个区块切分为更小的几个区块
-9. e: 编辑区块
-10. /: 正则搜索某个区块
+- `gm`：`git merge`。
+- `gr`：`git rebase`；`gri`：交互式变基 `git rebase -i`；`gro`：`git rebase -i --onto`。
+- `gra` / `grc`：变基的 `--abort` / `--continue`。
+- `grh`：`git reset --hard`；`grs`：`git reset --soft`。
 
-前面几个操作都很好理解，重点介绍一下 8 和 9 这两个操作。不是所有的区块都能被切分，根据我的观察如果有几行有改动，然后相邻且没有缩进的另外几行也有改动，这种情况下才能切分。
+## Cherry-pick 与 SVN
 
-有时候一个常见的需求是只提交某几行，在我的印象中 SourceTree 需要手动选择连续的行，而 Tower 干脆就不支持，这时候需要用到命令 `e`，我们编辑改动的部分，把不想暂存的部分删掉就可以了。
+- `gcp`：`git cherry-pick`；`gcpc` / `gcpa`：`--continue` / `--abort`。
+- `git_cherry_pick_with_user [commit]...`：保留原提交者的 author、email、date 进行 cherry-pick，支持 `-n` / `--no-date` 不保留日期。
+- SVN 别名：`svnu` = `svn update`、`svnc` = `svn cleanup`。
+- SVN 转 Git 辅助函数：`git_svn_clone_from_branch_base`、`git_svn_clone_from_last_10/20/50/100`，按指定 revision 起点执行 `git svn clone`。
+- `git_merge_svn_from_to`、`git_get_svn_revision`：SVN 分支合并与 revision 查询。
 
-## git remote
+## 子模块
 
-1. 输入 `grsh` 可以查看所有的远程仓库，输入 `grsh origin` 可以查看 origin 仓库中的分支、track 信息，等价于命令 `git remote show`
-2. 输入 `grv` 可以查看远程仓库的地址，等价于命令 `git remote -v`
+- `cdsubmodule`：跳转到当前仓库第一个子模块目录。
+- `gsfgcdev` / `gsfgcsit`：所有子模块批量切换到 `develop` / `sit` 分支。
+- `gsfp`：所有子模块执行 `git pull`。
+- `up`：递归所有子 Git 仓库执行 `git fetch`（含 svn-remote 的 `git svn fetch`）。
 
-## git stash
+## 忽略文件
 
-1. 输入命令 `gst` 可以储藏所有未提交的改动，包括已暂存的改动和未跟踪的文件，它是命令 `git stash -u` 的缩写
-2. 输入命令 `gsp` 可以恢复最近的一次暂存，它会完整恢复状态，也就是说如果储藏时这个文件已暂存，恢复后也是暂存的，它是 `git stash pop --index` 命令的缩写
-
-## git grep
-
-这个命令和 grep 的区别在于运行更快，而且可以指定搜索范围（比如是否搜索未跟踪文件，搜索某个特定的 tag 等），如果当前目录是 git 目录，可以用 `ggrep` 来替代 `grep`
-
-`ggrep` 是 `git grep --break --heading -n` 命令的缩写，第一个参数表示不同文件的搜索结果间用空格分割，便于阅读。第二个参数非常有用，它不再在每一行输出前面加上文件名，而是在所有属于同一个文件的匹配之前加上一次文件名，
-这样输出结果的可读性更高，`-n` 表示输出行号。
-
-以查找 `gignore` 这个命令的历史为例，先输入 `ggrep gignore`，得到如图所示的结果，这告诉我们它定义在 `zsh-config/git.sh` 这个文件的第 25 行：
-
-![](https://diycode.b0.upaiyun.com/photo/2017/dd45040c35ab5011400c7172fbf1ff9b.png)
-
-然后输入 `ggp -L 25,25:./zsh-config/git.sh`，参数 `—L` 表示行内查找，即查找这个文件的第 25-25 行的提交记录，得到的结果如图所示：
-
-![](https://diycode.b0.upaiyun.com/photo/2017/a872cea9a13ce464e848cec8c0db3196.png)
-
-提交的 SHA-1 值、日期、提交者等信息就完全显示出来了
-
-## git tag
-
-1. 输入命令 `gt` 可以打标签，等价于命令 `git tag`
-2. 输入命令 `gtd` 可以删除**本地标签**，等价于命令 `git tag -d`
-
-## 常见工作流
-
-注意，这里说的工作流不是 git-workflow 的意思，而是一些常见命令的组合。
-
-1. 输入 `gsfrs` 可以先暂存(stash) 当前改动，拉取远程代码，rebase 以后再应用暂存，等价于命令 `git stash;git fetch;git rebase;git stash pop;`。**警告 ⚠️** 如果 rebase 的过程中遇到冲突，不会自动 pop 暂存，需要手动执行命令
+- `gignore`：`git update-index --assume-unchanged`，临时忽略已跟踪文件的改动（不修改 `.gitignore`）。
+- `whyignore`：`git check-ignore -v`，查看某文件被哪条规则忽略。
+- `reignore`：`git rm -r --cached . && git add .`，重新应用忽略规则。
 
 ## 其他
 
-这里整理了一些暂时无法分类的命令：
+- `gnext` / `gprevious`：在 master 提交序列中切到下一个 / 上一个提交（`gprevious` 即 `git checkout HEAD^1`）。
+- `editConfilicts`：用 gvim 打开所有冲突文件。
+- `deleteNewFiles`：删除所有未跟踪文件（不可恢复，慎用）。
+- `kgitx`：结束已有 GitX 进程后重新打开。
 
-1. `grt` 可以跳转到本地 git 目录的根路径，等价于 `cd $(git rev-parse --show-toplevel || echo ".")`
-2. `grm` 表示默认的 `git reset`，因为 `gr` 被更常用的 rebase 命令占用了
-3. `gref` 是命令 `git reflog` 的缩写，用来查看 HEAD 分支的变动历史
+## 常见工作流
+
+- `gsfrs`：`git stash; git fetch; git rebase; git stash pop`，暂存改动后拉取并变基，再恢复暂存。**注意**：若变基过程中遇到冲突，不会自动 pop 暂存，需要手动处理。
