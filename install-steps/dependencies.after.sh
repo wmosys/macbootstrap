@@ -52,6 +52,7 @@ fi
 # hook login
 #./install-steps/hook_login.sh
 
-# Install Font Fira Code 
+# Install Font 
+brew install --cask font-jetbrains-mono
 brew install --cask font-fira-code
 brew install --cask font-hack-nerd-font

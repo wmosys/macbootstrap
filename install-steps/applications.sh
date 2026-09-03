@@ -35,12 +35,5 @@ fi
 brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json webpquicklook provisionql quicklookapk
 brew install --cask --appdir='/usr/local/bin' qlimagesize qlvideo # Avoid password
 
-# 安装 搜狗输入法
-# brew install --cask sogouinput
-# sogou_base="/usr/local/Caskroom/sogouinput"
-# sogou_version="$sogou_base/"`ls "$sogou_base"`
-# sogou_app="$sogou_version/"`ls $sogou_version | grep .app | tail -n 1`
-# open "$sogou_app"
-
-# Zip tool
-brew install --cask the-unarchiver
+# 安装 微信输入法
+brew install --cask sogouinput

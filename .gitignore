@@ -4,3 +4,13 @@ config/shadowsocks.conf
 git-config/.gitconfig
 autoEngUserSet.plist
 tools/DockIconHider
+
+# 敏感文件：密钥与历史记录不入库，装机时手动放置（见方案「密钥与安全收口」）
+config/id_rsa*
+config/gpg-sec*
+git-config/*.asc
+profile/.histfile
+secrets/
+
+# 本地 agent 配置，含个人绝对路径
+.agents/obsidian-plan.json

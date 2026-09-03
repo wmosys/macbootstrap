@@ -68,6 +68,7 @@ function install_personal_apps() {
     brew install eudic
     brew install imazing
     brew install siyuan
+    brew install obsidian
     brew install yinxiangbiji
     brew install visual-studio-code
     brew install balenaetcher
