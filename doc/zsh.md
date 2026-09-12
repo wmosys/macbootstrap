@@ -26,14 +26,13 @@
 - `xgrep <ext> <pattern>`（grep.sh）：先按扩展名过滤文件再 grep
 - `bsgrep <pattern>`（platform.mac.sh）：递归 grep
 
-## 系统代理（platform.mac.sh）
+## 终端代理（platform.mac.sh）
 
-封装为 `proxy` 命令，简写 `p`：
+封装为 `proxy` 命令，简写 `p`，通过 export 环境变量让终端命令（curl、git、npm 等）走本地代理，只影响当前 shell 会话，不影响 GUI 应用。端口在 `platform.mac.sh` 顶部的 `PROXY_HTTP_PORT` / `PROXY_SOCKS_PORT` 修改：
 
-- `p on`：HTTP 与 HTTPS 代理设为 `127.0.0.1:8888`（Charles）
-- `p g`：socks 代理设为 `localhost:14179`
-- `p off`：关闭所有代理
-- `p s`：查看当前代理状态
+- `p on`：开启终端代理（设置 `http_proxy`/`https_proxy`/`all_proxy` 及大写、`no_proxy` 变量），并自动检测连通性
+- `p off`：关闭终端代理（清除相关环境变量）
+- `p s`：查看当前代理变量与连通性（经代理访问 `google.com/generate_204`）
 
 ## 网络与系统信息
 
@@ -79,7 +78,10 @@
 
 - `bsfn <regex>`：按正则查找文件名（`platform.mac.sh`）
 - `bswhich <name>`：查看某命令是函数还是别名，以及定义所在文件（`bswhich ip`、`bswhich gg`）
-- `h [keyword]`：历史命令关键字统计排行
+- `h [keyword]`：历史命令关键字统计排行，结果注册为 `f1`、`f2` 等编号 function，本会话内输入编号可重放对应命令
+- `s <keyword>`：在 `~/dev/DailyLearning` 笔记中搜索关键字并高亮显示（路径写死在 `platform.mac.sh`，依赖该目录存在）
+- `pt`：重启 polipo 并让当前会话的终端代理指向 `localhost:8123`（依赖 Homebrew 的 polipo，属旧方案，日常代理用 `p`）
+- `bssclient`：后台启动 shadowsocks 本地客户端，配置为 `~/.macbootstrap/config/shadowsocks.conf`
 - `urlencode` / `urldecode`：URL 编解码，结果自动写入剪贴板（`tools.sh`，实现会从远端拉取脚本，网络异常时不可用）
 - `ppjson`：终端格式化 JSON（`echo '{"a":1}' | ppjson`）
 - 全角句号适配（`chinese_characters_adapter.sh`）：`。` 等价于 `.`，`。。` 等价于 `..`
@@ -130,7 +132,7 @@ fzf 提供模糊搜索与补全，主要快捷键：
 1. `kill` 后按 `Ctrl-t`：补全进程 PID
 2. `ssh`、`export`、`unset`、`unalias` 等命令支持 fzf 补全
 3. `Alt-c`：列出当前目录下的文件夹并快速进入
-4. `Ctrl-g`：补全 autojump 的路径列表
+4. `Ctrl-g`：从 autojump 历史目录中交互选择一项并跳转（`autojump_with_fzf`）
 5. `Ctrl-r`：命令历史搜索
 6. `Ctrl-x Ctrl-r`：历史搜索后自动执行（`Ctrl-r` 仅粘贴不执行）
 

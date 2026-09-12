@@ -69,3 +69,5 @@
 	forceSignAnnotated = false
 [gpg "ssh"]
 	program = ssh-keygen
+[credential]
+	helper = !cnb git-credential
